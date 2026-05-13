@@ -1,0 +1,44 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { href: `${base}/`, label: 'Home' },
+  { href: `${base}/blog`, label: 'Blog' },
+  { href: `${base}/about`, label: 'About' },
+];
+---
+
+<header>
+  <nav>
+    <a href={`${base}/`} class="brand">ai-sec-research</a>
+    <ul>
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+  }
+  nav {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--fg);
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+  }
+</style>

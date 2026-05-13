@@ -1,0 +1,47 @@
+---
+// Giscus comments — uses GitHub Discussions as the backend.
+//
+// To enable:
+//   1. Enable Discussions on the repo (Settings → General → Features).
+//   2. Install the giscus app: https://github.com/apps/giscus
+//   3. Visit https://giscus.app, fill in the form, copy the data-* values below.
+//   4. Replace the REPLACE_ME placeholders.
+//   5. Remove the `disabled` wrapper.
+const disabled = true;
+---
+
+{disabled ? (
+  <div class="giscus-placeholder">
+    <p class="muted">
+      Comments are not yet configured. Configure Giscus in
+      <code>src/components/Giscus.astro</code>.
+    </p>
+  </div>
+) : (
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="jaegerpicker/ai_sec_research"
+    data-repo-id="REPLACE_ME"
+    data-category="Announcements"
+    data-category-id="REPLACE_ME"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+  ></script>
+)}
+
+<style>
+  .giscus-placeholder {
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    text-align: center;
+  }
+</style>
