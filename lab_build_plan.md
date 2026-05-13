@@ -10,6 +10,44 @@ A personal, reproducible lab for hands-on AI red-team research. The lab itself i
 4. **Public by default.** Code lives in a public GitHub repo (`ai-redteam-lab`). README double-serves as portfolio.
 5. **Safety.** No real CSAM/bio/cyber-uplift testing. Stick to OWASP-canonical attack classes. Read Anthropic's responsible disclosure policy before anything that hits a hosted model.
 
+## v0 First Milestone
+
+The full roadmap below remains the long-term research plan. v0 is the first
+small, complete slice: one vulnerable agent, one attack path, one eval, one
+defense toggle, and one writeup. This keeps the first release achievable while
+preserving the broader plan for tool attacks, memory poisoning, scheduled
+hijack, cross-agent injection, and defense comparisons.
+
+### v0 Scope
+
+- **Target:** one intentionally vulnerable RAG agent focused on indirect prompt
+  injection through retrieved documents.
+- **Attack surface:** trusted and attacker-controlled document fixtures,
+  plus a deterministic fake tool/action surface before adding real MCP.
+- **Attack harness:** a small scripted payload set that reports attack success
+  rate over repeated attempts.
+- **Defense:** one toggle, preferably untrusted-content labeling or
+  spotlighting, measured as defense OFF vs defense ON.
+- **Writeup:** a reproducible report covering architecture, safety boundaries,
+  attack steps, eval results, and defense delta.
+
+### v0 Deliverable
+
+`docker compose up` runs the local vulnerable RAG agent; one command runs the
+attack/eval harness; the output reports attack success rate; one defense toggle
+produces a comparable result; and the writeup explains how to reproduce the
+experiment safely.
+
+### Later Roadmap
+
+After v0, continue through the original phases rather than replacing them:
+
+- Add tool-confusion and excessive-agency agents.
+- Add memory-poisoning, scheduled-hijack, and cross-agent-leak agents.
+- Introduce garak, PyRIT, promptfoo, and Inspect where each adds useful
+  coverage.
+- Expand defenses and compare attack success rate across the matrix.
+
 ## Architecture
 
 ```
