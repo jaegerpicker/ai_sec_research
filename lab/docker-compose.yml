@@ -1,0 +1,25 @@
+name: ai-redteam-lab-v0
+
+services:
+  vulnerable-rag:
+    image: alpine:3.20
+    command: ["sh", "-c", "echo 'vulnerable-rag placeholder'; sleep infinity"]
+    networks:
+      - redteam-lab
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+
+  egress-proxy:
+    image: alpine:3.20
+    command: ["sh", "-c", "echo 'egress-proxy placeholder'; sleep infinity"]
+    networks:
+      - redteam-lab
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  redteam-lab:
+    driver: bridge
+    internal: true
