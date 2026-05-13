@@ -55,8 +55,13 @@ From the repository root:
 python3 -m venv .venv
 .venv/bin/python -m pip install -r lab/requirements.txt
 npm run test:lab
+.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py
 ```
 
 The initial `vulnerable-rag` service publishes only `127.0.0.1:8000` for local
 testing. Later issues replace the placeholder proxy behavior with attack
 harness and evaluation flow.
+
+The v0 attack runner writes machine-readable JSON results to
+`lab/evals/results/v0-rag-latest.json` by default. Generated result files are
+ignored by Git so repeated local evals do not create repository noise.
