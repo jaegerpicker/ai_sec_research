@@ -2,10 +2,13 @@ name: ai-redteam-lab-v0
 
 services:
   vulnerable-rag:
-    image: alpine:3.20
-    command: ["sh", "-c", "echo 'vulnerable-rag placeholder'; sleep infinity"]
+    build:
+      context: ..
+      dockerfile: lab/vulnerable-agents/injection-via-rag/Dockerfile
     networks:
       - redteam-lab
+    ports:
+      - "127.0.0.1:8000:8000"
     read_only: true
     security_opt:
       - no-new-privileges:true
@@ -22,4 +25,3 @@ services:
 networks:
   redteam-lab:
     driver: bridge
-    internal: true

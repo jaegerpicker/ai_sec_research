@@ -6,8 +6,8 @@ one indirect prompt injection attack path, one evaluation harness, one defense
 toggle, and one writeup.
 
 The first implementation target is `vulnerable-agents/injection-via-rag`.
-Issue #6 only creates the scaffold. The vulnerable agent, attack runner,
-defense toggle, and writeup are tracked in follow-up issues.
+Issue #7 adds the vulnerable FastAPI target. The attack runner, defense toggle,
+and writeup are tracked in follow-up issues.
 
 ## Layout
 
@@ -34,6 +34,7 @@ lab/
 - No real cloud tokens.
 - No personal data mounted into vulnerable services.
 - No host network mode.
+- Local services bind to loopback only when host access is needed.
 - No third-party targets without explicit written authorization.
 
 The lab is intentionally vulnerable. Keep vulnerable behavior inside owned,
@@ -51,9 +52,11 @@ docker compose up
 From the repository root:
 
 ```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r lab/requirements.txt
 npm run test:lab
 ```
 
-The initial Docker Compose file is a service skeleton. Later issues replace the
-placeholder commands with the vulnerable RAG agent, proxy behavior, attack
-harness, and evaluation flow.
+The initial `vulnerable-rag` service publishes only `127.0.0.1:8000` for local
+testing. Later issues replace the placeholder proxy behavior with attack
+harness and evaluation flow.
