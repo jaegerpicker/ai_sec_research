@@ -15,6 +15,7 @@ pnpm-debug.log*
 __pycache__/
 *.py[cod]
 .venv/
+lab/evals/results/*.json
 
 # environment
 .env

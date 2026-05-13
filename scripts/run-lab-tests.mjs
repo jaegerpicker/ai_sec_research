@@ -15,7 +15,9 @@ if (!existsSync(pythonPath)) {
 
 const result = spawnSync(
   pythonPath,
-  ['-m', 'unittest', 'discover', '-s', 'tests'],
+  process.argv.length > 2
+    ? ['-m', 'unittest', ...process.argv.slice(2)]
+    : ['-m', 'unittest', 'discover', '-s', 'tests'],
   { stdio: 'inherit' },
 );
 
