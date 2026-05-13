@@ -1,0 +1,70 @@
+name: Lab or Workflow Task
+description: Track one independently reviewable unit of work.
+title: "[Task]: "
+labels:
+  - lab
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use one issue per branch and one branch per pull request.
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should this task accomplish?
+      placeholder: Add a focused, testable outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What files, components, or behavior are in scope?
+      placeholder: List the expected work and explicit non-goals.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What must be true before this issue can close?
+      placeholder: |
+        - The feature does X.
+        - The docs explain Y.
+        - The command Z passes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation Plan
+      description: Which tests, builds, or smoke checks should prove the work?
+      placeholder: |
+        - Run `git diff --check`.
+        - Run the relevant unit tests.
+        - Run a documented smoke test.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies or Blockers
+      description: List any prerequisite issues, approvals, or external setup.
+      placeholder: None.
+    validations:
+      required: false
+
+  - type: input
+    id: branch
+    attributes:
+      label: Expected Branch
+      description: Use `issue-<number>-short-description` after the issue is created.
+      placeholder: issue-123-short-description
+    validations:
+      required: false
