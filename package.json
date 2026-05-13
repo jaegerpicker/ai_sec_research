@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:lab": "python3 -m unittest discover -s tests"
+    "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.5",

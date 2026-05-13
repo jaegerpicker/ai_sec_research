@@ -42,13 +42,14 @@ class LabScaffoldTest(unittest.TestCase):
         self.assertIn("vulnerable-rag:", compose)
         self.assertIn("egress-proxy:", compose)
         self.assertIn("redteam-lab:", compose)
-        self.assertIn("internal: true", compose)
+        self.assertIn('"127.0.0.1:8000:8000"', compose)
+        self.assertIn("dockerfile: lab/vulnerable-agents/injection-via-rag/Dockerfile", compose)
 
     def test_package_json_exposes_lab_test_command(self):
         package_json = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
 
         self.assertEqual(
-            "python3 -m unittest discover -s tests",
+            "node scripts/run-lab-tests.mjs",
             package_json["scripts"].get("test:lab"),
         )
 
