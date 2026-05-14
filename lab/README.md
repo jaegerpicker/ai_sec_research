@@ -6,8 +6,9 @@ one indirect prompt injection attack path, one evaluation harness, one defense
 toggle, and one writeup.
 
 The first implementation target is `vulnerable-agents/injection-via-rag`.
-Issue #7 adds the vulnerable FastAPI target. The attack runner, defense toggle,
-and writeup are tracked in follow-up issues.
+Issue #7 adds the vulnerable FastAPI target, issue #8 adds the attack and
+eval harness, and issue #9 adds the spotlighting defense toggle and OFF vs
+ON comparison. The writeup is tracked in a follow-up issue.
 
 ## Layout
 
@@ -65,3 +66,8 @@ harness and evaluation flow.
 The v0 attack runner writes machine-readable JSON results to
 `lab/evals/results/v0-rag-latest.json` by default. Generated result files are
 ignored by Git so repeated local evals do not create repository noise.
+
+The runner's default mode is `compare`, which runs the suite once with the
+spotlighting defense off and once with it on, and reports both attack
+success rates plus the delta. See `lab/attacker/README.md` and
+`lab/defenses/spotlighting/README.md` for details and the toggle.

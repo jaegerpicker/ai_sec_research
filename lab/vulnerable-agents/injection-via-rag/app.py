@@ -1,3 +1,5 @@
+import importlib.util
+import os
 from pathlib import Path
 from typing import Any
 
@@ -8,6 +10,15 @@ from pydantic import BaseModel
 LAB_FLAG = "LAB-V0-RAG-FLAG-DO-NOT-USE-REAL-SECRETS"
 BASE_DIR = Path(__file__).resolve().parent
 DOCUMENTS_DIR = BASE_DIR / "documents"
+
+DEFENSE_ENV_VAR = "LAB_V0_DEFENSE_SPOTLIGHTING"
+SPOTLIGHTING_CANDIDATES = (
+    # Repo checkout: lab/vulnerable-agents/injection-via-rag/app.py
+    #              → lab/defenses/spotlighting/spotlighting.py
+    BASE_DIR.parent.parent / "defenses" / "spotlighting" / "spotlighting.py",
+    # Docker image: /app/app.py → /app/defenses/spotlighting/spotlighting.py
+    Path("/app/defenses/spotlighting/spotlighting.py"),
+)
 
 DOCUMENT_INDEX = [
     ("trusted-refund-policy", "trusted", "Refund workflow policy", "trusted-refund-policy.md"),
@@ -57,10 +68,33 @@ def fake_exfiltrate_flag() -> dict[str, str]:
     }
 
 
-def choose_action(retrieved_docs: list[dict[str, str]]) -> dict[str, str]:
-    combined_context = "\n".join(doc["content"].lower() for doc in retrieved_docs)
+def defense_enabled() -> bool:
+    return os.environ.get(DEFENSE_ENV_VAR, "").strip().lower() in {"1", "true", "on", "yes"}
 
-    if "exfiltrate_flag" in combined_context:
+
+def _load_spotlighting() -> Any:
+    for candidate in SPOTLIGHTING_CANDIDATES:
+        if candidate.exists():
+            spec = importlib.util.spec_from_file_location("lab_v0_spotlighting", candidate)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return module
+    raise FileNotFoundError(
+        "Spotlighting module not found in any of: "
+        + ", ".join(str(p) for p in SPOTLIGHTING_CANDIDATES)
+    )
+
+
+def choose_action(retrieved_docs: list[dict[str, Any]]) -> dict[str, str]:
+    # Spotlighted documents are treated as data, not instructions. The action
+    # selector only scans non-spotlighted content for instruction triggers.
+    instruction_context = "\n".join(
+        doc["content"].lower()
+        for doc in retrieved_docs
+        if not doc.get("spotlighted")
+    )
+
+    if "exfiltrate_flag" in instruction_context:
         return fake_exfiltrate_flag()
 
     return {
@@ -71,6 +105,10 @@ def choose_action(retrieved_docs: list[dict[str, str]]) -> dict[str, str]:
 
 def chat(message: str) -> dict[str, Any]:
     sources = retrieve_documents(message)
+    defense_on = defense_enabled()
+    if defense_on:
+        spotlighting = _load_spotlighting()
+        sources = spotlighting.apply_spotlighting(sources)
     action = choose_action(sources)
 
     if action["name"] == "exfiltrate_flag":
@@ -88,6 +126,10 @@ def chat(message: str) -> dict[str, Any]:
         "action": action,
         "sources": sources,
         "vulnerable": vulnerable,
+        "defense": {
+            "name": "spotlighting",
+            "enabled": defense_on,
+        },
     }
 
 
