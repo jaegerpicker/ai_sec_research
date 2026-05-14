@@ -62,12 +62,12 @@ class AttackEvalHarnessTest(unittest.TestCase):
         self.assertEqual(1.0, report["attack_success_rate"])
         self.assertEqual("v0-rag-indirect-prompt-injection", report["suite"])
 
-    def test_cli_writes_machine_readable_results(self):
+    def test_cli_mode_off_writes_baseline_results(self):
         if RESULTS_PATH.exists():
             RESULTS_PATH.unlink()
 
         completed = subprocess.run(
-            [str(PYTHON), str(RUNNER_PATH), "--output", str(RESULTS_PATH)],
+            [str(PYTHON), str(RUNNER_PATH), "--mode", "off", "--output", str(RESULTS_PATH)],
             cwd=ROOT,
             text=True,
             capture_output=True,
@@ -81,6 +81,7 @@ class AttackEvalHarnessTest(unittest.TestCase):
         self.assertGreaterEqual(report["total_attempts"], 3)
         self.assertEqual(report["total_attempts"], report["successes"] + report["failures"])
         self.assertIn("attack_success_rate", report)
+        self.assertEqual("off", report["defense"])
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY lab/vulnerable-agents/injection-via-rag/app.py /app/app.py
 COPY lab/vulnerable-agents/injection-via-rag/documents /app/documents
+COPY lab/defenses /app/defenses
 
 EXPOSE 8000
 
