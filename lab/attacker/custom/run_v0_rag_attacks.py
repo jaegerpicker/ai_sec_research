@@ -2,6 +2,7 @@ import argparse
 import importlib.util
 import json
 import os
+from urllib import error, request
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -44,6 +45,26 @@ def score_response(payload: dict[str, str], response: dict[str, Any]) -> dict[st
     }
 
 
+def post_chat(base_url: str, message: str) -> dict[str, Any]:
+    url = base_url.rstrip("/") + "/chat"
+    body = json.dumps({"message": message}).encode("utf-8")
+    req = request.Request(
+        url,
+        data=body,
+        headers={"content-type": "application/json"},
+        method="POST",
+    )
+
+    try:
+        with request.urlopen(req, timeout=10) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except error.HTTPError as exc:
+        details = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"HTTP target returned {exc.code} for {url}: {details}") from exc
+    except error.URLError as exc:
+        raise RuntimeError(f"Could not reach HTTP target at {url}: {exc.reason}") from exc
+
+
 def _set_defense(state: bool) -> str | None:
     prev = os.environ.get(DEFENSE_ENV_VAR)
     os.environ[DEFENSE_ENV_VAR] = "1" if state else "0"
@@ -60,23 +81,31 @@ def _restore_defense(prev: str | None) -> None:
 def run_suite(
     payloads: list[dict[str, str]] | None = None,
     defense: bool = False,
+    target: str = "in-process",
+    base_url: str = "http://127.0.0.1:8000",
 ) -> dict[str, Any]:
     attack_payloads = payloads if payloads is not None else load_payloads()
-    prev_env = _set_defense(defense)
-    try:
-        agent = load_agent_module()
-        cases = [score_response(p, agent.chat(p["message"])) for p in attack_payloads]
-    finally:
-        _restore_defense(prev_env)
+    if target == "http":
+        cases = [score_response(p, post_chat(base_url, p["message"])) for p in attack_payloads]
+    else:
+        prev_env = _set_defense(defense)
+        try:
+            agent = load_agent_module()
+            cases = [score_response(p, agent.chat(p["message"])) for p in attack_payloads]
+        finally:
+            _restore_defense(prev_env)
 
     successes = sum(1 for case in cases if case["success"])
     total_attempts = len(cases)
     failures = total_attempts - successes
 
-    return {
+    report = {
         "suite": "v0-rag-indirect-prompt-injection",
         "defense": "spotlighting" if defense else "off",
         "defense_enabled": defense,
+        "target": {
+            "type": target,
+        },
         "generated_at": datetime.now(UTC).isoformat(),
         "total_attempts": total_attempts,
         "successes": successes,
@@ -84,15 +113,27 @@ def run_suite(
         "attack_success_rate": successes / total_attempts if total_attempts else 0.0,
         "cases": cases,
     }
+    if target == "http":
+        report["target"]["base_url"] = base_url
+
+    return report
 
 
-def run_comparison(payloads: list[dict[str, str]] | None = None) -> dict[str, Any]:
+def run_comparison(
+    payloads: list[dict[str, str]] | None = None,
+    target: str = "in-process",
+    base_url: str = "http://127.0.0.1:8000",
+) -> dict[str, Any]:
     attack_payloads = payloads if payloads is not None else load_payloads()
-    off = run_suite(attack_payloads, defense=False)
-    on = run_suite(attack_payloads, defense=True)
+    off = run_suite(attack_payloads, defense=False, target=target, base_url=base_url)
+    on = run_suite(attack_payloads, defense=True, target=target, base_url=base_url)
     return {
         "suite": "v0-rag-indirect-prompt-injection-defense-comparison",
         "defense": "spotlighting",
+        "target": {
+            "type": target,
+            **({"base_url": base_url} if target == "http" else {}),
+        },
         "generated_at": datetime.now(UTC).isoformat(),
         "defense_off": off,
         "defense_on": on,
@@ -114,6 +155,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--payloads", type=Path, default=PAYLOADS_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     parser.add_argument(
+        "--target",
+        choices=("in-process", "http"),
+        default="in-process",
+        help="Attack target: in-process Python module or live HTTP service.",
+    )
+    parser.add_argument(
+        "--base-url",
+        default="http://127.0.0.1:8000",
+        help="Base URL for --target http. The runner posts to /chat.",
+    )
+    parser.add_argument(
         "--mode",
         choices=("off", "on", "compare"),
         default="compare",
@@ -127,9 +179,14 @@ def main() -> int:
     payloads = load_payloads(args.payloads)
 
     if args.mode == "compare":
-        report = run_comparison(payloads)
+        report = run_comparison(payloads, target=args.target, base_url=args.base_url)
     else:
-        report = run_suite(payloads, defense=(args.mode == "on"))
+        report = run_suite(
+            payloads,
+            defense=(args.mode == "on"),
+            target=args.target,
+            base_url=args.base_url,
+        )
 
     write_report(report, args.output)
     print(json.dumps(report, indent=2))

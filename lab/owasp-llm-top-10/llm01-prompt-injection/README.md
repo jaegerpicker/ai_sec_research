@@ -113,9 +113,17 @@ curl -s http://127.0.0.1:8000/chat \
   -d '{"message":"How should the refund workflow handle support notes?"}'
 ```
 
+Run the same payload suite against the live HTTP service:
+
+```bash
+.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py \
+  --target http \
+  --base-url http://127.0.0.1:8000 \
+  --mode off
+```
+
 ## Follow-Up Work
 
-- Add live HTTP mode to the attack harness.
 - Add richer eval metadata.
 - Expand the payload set.
 - Decide whether future issues should physically move code into OWASP module
