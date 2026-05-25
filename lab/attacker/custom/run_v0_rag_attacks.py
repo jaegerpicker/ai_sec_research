@@ -6,6 +6,7 @@ from urllib import error, request
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -14,6 +15,13 @@ PAYLOADS_PATH = ROOT / "lab" / "attacker" / "payloads" / "indirect_prompt_inject
 DEFAULT_OUTPUT_PATH = ROOT / "lab" / "evals" / "results" / "v0-rag-latest.json"
 
 DEFENSE_ENV_VAR = "LAB_V0_DEFENSE_SPOTLIGHTING"
+RUNNER_VERSION = "0.2.0"
+METADATA_SCHEMA_VERSION = "1.0"
+OWASP_ID = "LLM01:2025"
+OWASP_NAME = "Prompt Injection"
+MODULE_ID = "llm01-prompt-injection"
+SUITE_ID = "v0-rag-indirect-prompt-injection"
+COMPARISON_SUITE_ID = "v0-rag-indirect-prompt-injection-defense-comparison"
 
 
 def load_agent_module() -> Any:
@@ -65,6 +73,49 @@ def post_chat(base_url: str, message: str) -> dict[str, Any]:
         raise RuntimeError(f"Could not reach HTTP target at {url}: {exc.reason}") from exc
 
 
+def target_metadata(target: str, base_url: str) -> dict[str, str]:
+    metadata = {"type": target}
+    if target == "http":
+        metadata["base_url"] = base_url
+    return metadata
+
+
+def build_metadata(
+    *,
+    suite: str,
+    target: str,
+    base_url: str,
+    payloads_path: Path,
+    payload_count: int,
+    started_at: datetime,
+    completed_at: datetime,
+    run_id: str | None = None,
+    parent_run_id: str | None = None,
+) -> dict[str, Any]:
+    metadata = {
+        "schema_version": METADATA_SCHEMA_VERSION,
+        "run_id": run_id or str(uuid4()),
+        "suite": suite,
+        "module": MODULE_ID,
+        "owasp_id": OWASP_ID,
+        "owasp_name": OWASP_NAME,
+        "runner": {
+            "name": "run_v0_rag_attacks.py",
+            "version": RUNNER_VERSION,
+        },
+        "target": target_metadata(target, base_url),
+        "payloads_path": str(payloads_path.relative_to(ROOT)),
+        "payload_count": payload_count,
+        "started_at": started_at.isoformat(),
+        "completed_at": completed_at.isoformat(),
+        "duration_ms": int((completed_at - started_at).total_seconds() * 1000),
+    }
+    if parent_run_id:
+        metadata["parent_run_id"] = parent_run_id
+
+    return metadata
+
+
 def _set_defense(state: bool) -> str | None:
     prev = os.environ.get(DEFENSE_ENV_VAR)
     os.environ[DEFENSE_ENV_VAR] = "1" if state else "0"
@@ -83,8 +134,11 @@ def run_suite(
     defense: bool = False,
     target: str = "in-process",
     base_url: str = "http://127.0.0.1:8000",
+    payloads_path: Path = PAYLOADS_PATH,
+    parent_run_id: str | None = None,
 ) -> dict[str, Any]:
     attack_payloads = payloads if payloads is not None else load_payloads()
+    started_at = datetime.now(UTC)
     if target == "http":
         cases = [score_response(p, post_chat(base_url, p["message"])) for p in attack_payloads]
     else:
@@ -98,23 +152,30 @@ def run_suite(
     successes = sum(1 for case in cases if case["success"])
     total_attempts = len(cases)
     failures = total_attempts - successes
+    completed_at = datetime.now(UTC)
 
     report = {
-        "suite": "v0-rag-indirect-prompt-injection",
+        "suite": SUITE_ID,
         "defense": "spotlighting" if defense else "off",
         "defense_enabled": defense,
-        "target": {
-            "type": target,
-        },
-        "generated_at": datetime.now(UTC).isoformat(),
+        "target": target_metadata(target, base_url),
+        "metadata": build_metadata(
+            suite=SUITE_ID,
+            target=target,
+            base_url=base_url,
+            payloads_path=payloads_path,
+            payload_count=total_attempts,
+            started_at=started_at,
+            completed_at=completed_at,
+            parent_run_id=parent_run_id,
+        ),
+        "generated_at": completed_at.isoformat(),
         "total_attempts": total_attempts,
         "successes": successes,
         "failures": failures,
         "attack_success_rate": successes / total_attempts if total_attempts else 0.0,
         "cases": cases,
     }
-    if target == "http":
-        report["target"]["base_url"] = base_url
 
     return report
 
@@ -123,18 +184,43 @@ def run_comparison(
     payloads: list[dict[str, str]] | None = None,
     target: str = "in-process",
     base_url: str = "http://127.0.0.1:8000",
+    payloads_path: Path = PAYLOADS_PATH,
 ) -> dict[str, Any]:
     attack_payloads = payloads if payloads is not None else load_payloads()
-    off = run_suite(attack_payloads, defense=False, target=target, base_url=base_url)
-    on = run_suite(attack_payloads, defense=True, target=target, base_url=base_url)
+    started_at = datetime.now(UTC)
+    run_id = str(uuid4())
+    off = run_suite(
+        attack_payloads,
+        defense=False,
+        target=target,
+        base_url=base_url,
+        payloads_path=payloads_path,
+        parent_run_id=run_id,
+    )
+    on = run_suite(
+        attack_payloads,
+        defense=True,
+        target=target,
+        base_url=base_url,
+        payloads_path=payloads_path,
+        parent_run_id=run_id,
+    )
+    completed_at = datetime.now(UTC)
     return {
-        "suite": "v0-rag-indirect-prompt-injection-defense-comparison",
+        "suite": COMPARISON_SUITE_ID,
         "defense": "spotlighting",
-        "target": {
-            "type": target,
-            **({"base_url": base_url} if target == "http" else {}),
-        },
-        "generated_at": datetime.now(UTC).isoformat(),
+        "target": target_metadata(target, base_url),
+        "metadata": build_metadata(
+            suite=COMPARISON_SUITE_ID,
+            target=target,
+            base_url=base_url,
+            payloads_path=payloads_path,
+            payload_count=len(attack_payloads),
+            started_at=started_at,
+            completed_at=completed_at,
+            run_id=run_id,
+        ),
+        "generated_at": completed_at.isoformat(),
         "defense_off": off,
         "defense_on": on,
         "delta": {
@@ -179,13 +265,19 @@ def main() -> int:
     payloads = load_payloads(args.payloads)
 
     if args.mode == "compare":
-        report = run_comparison(payloads, target=args.target, base_url=args.base_url)
+        report = run_comparison(
+            payloads,
+            target=args.target,
+            base_url=args.base_url,
+            payloads_path=args.payloads,
+        )
     else:
         report = run_suite(
             payloads,
             defense=(args.mode == "on"),
             target=args.target,
             base_url=args.base_url,
+            payloads_path=args.payloads,
         )
 
     write_report(report, args.output)

@@ -122,9 +122,13 @@ Run the same payload suite against the live HTTP service:
   --mode off
 ```
 
+The JSON report includes a structured `metadata` object with the OWASP module,
+runner version, target, payload path, payload count, run id, timestamps, and
+duration. The legacy `attack_success_rate`, `successes`, `failures`, and
+`cases` fields remain available for simple checks and scripts.
+
 ## Follow-Up Work
 
-- Add richer eval metadata.
 - Expand the payload set.
 - Decide whether future issues should physically move code into OWASP module
   directories or keep module directories as stable indexes.
