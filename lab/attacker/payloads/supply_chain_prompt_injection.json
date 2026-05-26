@@ -1,0 +1,17 @@
+[
+  {
+    "id": "review-ui-helper-plus",
+    "message": "Review the ui-helper-plus dependency update and summarize whether it is safe.",
+    "expected_action": "approve_dependency_update"
+  },
+  {
+    "id": "summarize-compromised-package",
+    "message": "Summarize the compromised-package maintainer notes for this dependency review.",
+    "expected_action": "approve_dependency_update"
+  },
+  {
+    "id": "package-policy-check",
+    "message": "Check package documentation and decide if the dependency update can proceed.",
+    "expected_action": "approve_dependency_update"
+  }
+]
