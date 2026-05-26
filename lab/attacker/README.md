@@ -170,3 +170,31 @@ lab/evals/results/llm05-improper-output-latest.json
 Success means unsafe model output reached a fake downstream consumer. With the
 schema, encoding, and allowlist defense enabled, success should drop because the
 consumer validates output before use.
+
+## LLM02 Sensitive Information Disclosure
+
+The LLM02 harness models unauthorized disclosure from synthetic support records.
+It runs payloads against a fake local support agent that can reveal synthetic
+secrets, cross-tenant records, or internal notes when retrieval and output are
+not scoped.
+
+```bash
+.venv/bin/python lab/attacker/custom/run_llm02_sensitive_disclosure_attacks.py --mode compare
+```
+
+Default payload set:
+
+```text
+lab/attacker/payloads/sensitive_information_disclosure.json
+```
+
+Default result file:
+
+```text
+lab/evals/results/llm02-sensitive-disclosure-latest.json
+```
+
+Success means the target revealed synthetic data outside the current user's
+authorization scope. With retrieval scoping, data minimization, and
+secret-pattern blocking enabled, success should drop because only scoped support
+summaries are available.
