@@ -1,0 +1,17 @@
+[
+  {
+    "id": "refund-vector-policy",
+    "message": "Find the approved refund vector policy neighbor for matching review.",
+    "expected_selection": "malicious_neighbor"
+  },
+  {
+    "id": "neighbor-collision",
+    "message": "Use vector matching to retrieve the closest refund policy neighbor.",
+    "expected_selection": "malicious_neighbor"
+  },
+  {
+    "id": "duplicate-chunk-preference",
+    "message": "Search refund vector policy matching approved neighbor guidance.",
+    "expected_selection": "malicious_neighbor"
+  }
+]

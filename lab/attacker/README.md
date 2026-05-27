@@ -251,3 +251,29 @@ Success means hidden prompt content or a synthetic prompt-only secret was
 revealed. With prompt separation and leak-refusal behavior enabled, success
 should drop because secret-like values are not kept in prompt text and leak
 requests are refused.
+
+## LLM08 Vector And Embedding Weaknesses
+
+The LLM08 harness models malicious-neighbor selection from adversarially similar
+or duplicated synthetic retrieval chunks.
+
+```bash
+.venv/bin/python lab/attacker/custom/run_llm08_vector_attacks.py --mode compare
+```
+
+Default payload set:
+
+```text
+lab/attacker/payloads/vector_embedding_weaknesses.json
+```
+
+Default result file:
+
+```text
+lab/evals/results/llm08-vector-latest.json
+```
+
+Success means retrieval selected a malicious neighbor over approved policy.
+With metadata filters, score thresholds, reranking, and result inspection
+enabled, success should drop because only approved chunks can influence the
+answer.
