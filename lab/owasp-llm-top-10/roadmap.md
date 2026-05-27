@@ -40,7 +40,7 @@ future issue explicitly authorizes that work and records the authorization.
 | OWASP item | Local lab idea | Attack harness | Defense idea | Content output | Tracking |
 |---|---|---|---|---|---|
 | `LLM01:2025` Prompt Injection | RAG assistant retrieves trusted policy docs plus an attacker-controlled support note. | Payload set measures whether the assistant follows injected document instructions and reveals a synthetic lab flag. | Spotlighting/untrusted-content labeling around retrieved documents. | Blog post: prompt injection through RAG; Summit primary demo. | v0 built; module index #28; blog draft #26; HTTP mode #30; metadata #32 |
-| `LLM02:2025` Sensitive Information Disclosure | Support agent has access to synthetic customer records, internal notes, and a fake secret. | Prompts attempt to extract data outside the user's authorization scope. | Data minimization, retrieval scoping, output allowlists, and secret-pattern blocking. | Blog post: least data for agents; talk section on context as data exposure. | #38 |
+| `LLM02:2025` Sensitive Information Disclosure | Support agent has access to synthetic customer records, internal notes, and a fake secret. | Prompts attempt to extract data outside the user's authorization scope. | Data minimization, retrieval scoping, output allowlists, and secret-pattern blocking. | Blog post: least data for agents; talk section on context as data exposure. | #38; first lab slice built |
 | `LLM03:2025` Supply Chain | Compromised dependency or vendored package injects malicious instructions into docs, comments, or generated files. | Harness asks an agent to inspect dependency content and checks whether repo instructions are followed incorrectly. | Dependency trust boundaries, lockfile review, ignore rules for vendored instructions, and tool permission gating. | Blog post: package compromise to prompt injection; talk section tying npm/PyPI risk to AI agents. | #37; first lab slice built |
 | `LLM04:2025` Data and Model Poisoning | Training or retrieval corpus includes poisoned examples that bias future answers or create a trigger phrase. | Payloads query for trigger behavior and measure whether poisoned examples dominate retrieval or response. | Corpus provenance, review gates, poisoning scans, and retrieval result auditing. | Blog post: poisoning as persistence; talk section on memory and corpus trust. | #39 |
 | `LLM05:2025` Improper Output Handling | Agent output is passed into a downstream renderer, shell-like tool, SQL builder, or ticket automation without validation. | Payloads cause the model to emit unsafe structured output that the downstream component consumes. | Schema validation, output encoding, command allowlists, and human approval for risky actions. | Blog post: model output is untrusted input; talk section on downstream blast radius. | #36; first lab slice built |
@@ -66,12 +66,16 @@ future issue explicitly authorizes that work and records the authorization.
    overpowered agent tools. First slice done in #40.
 7. Build `LLM05:2025` Improper Output Handling to show model output becoming
    unsafe downstream input. First slice done in #36.
+8. Build `LLM02:2025` Sensitive Information Disclosure to show synthetic record
+   exposure through broad retrieval and output. First slice done in #38.
 
 ## Next Work
 
 - Expand `LLM03:2025` with more supply-chain fixture variants and a blog draft
   (#37 follow-up).
-- Build `LLM02:2025` sensitive-information-disclosure lab (#38).
+- Build `LLM04:2025` data-and-model-poisoning lab (#39).
+- Expand `LLM02:2025` with role-based payloads, field-level allowlists, and
+  partial-redaction tests (#38 follow-up).
 - Expand `LLM05:2025` with JSON Schema examples, approval gates, and renderer
   encoding tests (#36 follow-up).
 - Expand `LLM06:2025` with multi-step payloads, dry-run mode, and audit-log
