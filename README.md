@@ -3,13 +3,13 @@
 Personal blog and research notes on AI security, red teaming, and agentic
 systems. Built with [Astro](https://astro.build) and deployed to GitHub Pages.
 
-Live site: <https://jaegerpicker.github.io/ai_sec_research/>
+Live site: <https://sandkcampbell.com/>
 
 ## Local development
 
 ```bash
 npm install
-npm run dev       # http://localhost:4321/ai_sec_research/
+npm run dev       # http://localhost:4321/
 npm run build
 npm run preview
 ```
