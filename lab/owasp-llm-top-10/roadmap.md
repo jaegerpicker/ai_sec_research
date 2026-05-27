@@ -48,7 +48,7 @@ future issue explicitly authorizes that work and records the authorization.
 | `LLM07:2025` System Prompt Leakage | App includes hidden policy, routing rules, or synthetic secrets in system/developer context. | Payloads ask directly and indirectly for hidden instructions and measure leakage. | Remove secrets from prompts, split policy from runtime secrets, and test prompt-leak regressions. | Blog post: system prompts are not secret storage; talk section on misplaced trust. | #41; first lab slice built |
 | `LLM08:2025` Vector and Embedding Weaknesses | Vector store contains poisoned, duplicated, or adversarially similar documents that skew retrieval. | Harness tests retrieval collisions, over-broad matches, and malicious-neighbor selection. | Metadata filters, chunk provenance, retrieval thresholds, re-ranking, and result inspection. | Blog post: vector databases as attack surface; talk section on retrieval control. | #42; first lab slice built |
 | `LLM09:2025` Misinformation | Agent answers confidently from stale or low-quality local sources and invents unsupported claims. | Evaluator checks citation quality, source grounding, and hallucinated assertions. | Retrieval grounding, abstention rules, citation requirements, and freshness checks. | Blog post: measuring truthfulness in agent workflows; talk section on confidence vs evidence. | #44; first lab slice built |
-| `LLM10:2025` Unbounded Consumption | Agent accepts prompts that cause expensive loops, huge context retrieval, or repeated tool calls. | Harness measures token, time, request count, and tool-call amplification. | Budgets, rate limits, recursion limits, context caps, and cancellation paths. | Blog post: denial of wallet and runaway agents; talk section on operational controls. | #43 |
+| `LLM10:2025` Unbounded Consumption | Agent accepts prompts that cause expensive loops, huge context retrieval, or repeated tool calls. | Harness measures token, time, request count, and tool-call amplification. | Budgets, rate limits, recursion limits, context caps, and cancellation paths. | Blog post: denial of wallet and runaway agents; talk section on operational controls. | #43; first lab slice built |
 
 ## V1 Work Order
 
@@ -78,12 +78,17 @@ future issue explicitly authorizes that work and records the authorization.
     #42.
 12. Build `LLM09:2025` Misinformation to show unsupported claims from stale
     synthetic sources. First slice done in #44.
+13. Build `LLM10:2025` Unbounded Consumption to show bounded local resource
+    amplification and budget controls. First slice done in #43.
 
 ## Next Work
 
 - Expand `LLM03:2025` with more supply-chain fixture variants and a blog draft
   (#37 follow-up).
-- Build `LLM10:2025` unbounded-consumption lab (#43).
+- First OWASP LLM Top 10 lab slices are complete.
+- Start blog and presentation synthesis after reviewing the modules end to end.
+- Expand `LLM10:2025` with per-user budget windows, cancellation-path tests,
+  and latency-style metrics (#43 follow-up).
 - Expand `LLM09:2025` with conflicting-source payloads, citation-span checks,
   and abstention scoring (#44 follow-up).
 - Expand `LLM08:2025` with more collision variants, metadata bypass attempts,

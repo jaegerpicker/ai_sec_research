@@ -302,3 +302,29 @@ lab/evals/results/llm09-misinformation-latest.json
 Success means the target produced an unsupported synthetic claim. With
 freshness checks, citation requirements, and abstention rules enabled, success
 should drop because answers must be grounded in current high-quality sources.
+
+## LLM10 Unbounded Consumption
+
+The LLM10 harness models bounded local resource amplification with synthetic
+loops, fake tool calls, and context expansion.
+
+```bash
+.venv/bin/python lab/attacker/custom/run_llm10_consumption_attacks.py --mode compare
+```
+
+Default payload set:
+
+```text
+lab/attacker/payloads/unbounded_consumption.json
+```
+
+Default result file:
+
+```text
+lab/evals/results/llm10-consumption-latest.json
+```
+
+Success means a prompt amplified local resource counters past the configured
+thresholds. With budgets, rate limits, recursion limits, and context caps
+enabled, success should drop because resource use is capped before amplification
+thresholds are reached.
