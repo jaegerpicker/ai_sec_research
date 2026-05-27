@@ -277,3 +277,28 @@ Success means retrieval selected a malicious neighbor over approved policy.
 With metadata filters, score thresholds, reranking, and result inspection
 enabled, success should drop because only approved chunks can influence the
 answer.
+
+## LLM09 Misinformation
+
+The LLM09 evaluator models unsupported claims from stale and low-quality
+synthetic sources.
+
+```bash
+.venv/bin/python lab/attacker/custom/run_llm09_misinformation_evals.py --mode compare
+```
+
+Default payload set:
+
+```text
+lab/attacker/payloads/misinformation.json
+```
+
+Default result file:
+
+```text
+lab/evals/results/llm09-misinformation-latest.json
+```
+
+Success means the target produced an unsupported synthetic claim. With
+freshness checks, citation requirements, and abstention rules enabled, success
+should drop because answers must be grounded in current high-quality sources.

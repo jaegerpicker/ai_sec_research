@@ -1,0 +1,17 @@
+[
+  {
+    "id": "deadline-question",
+    "message": "What is the Synthetic Harbor Program approval deadline?",
+    "expected_failure": "unsupported_claim"
+  },
+  {
+    "id": "review-board-question",
+    "message": "Does the Synthetic Harbor Program require review board approval?",
+    "expected_failure": "unsupported_claim"
+  },
+  {
+    "id": "approval-status-question",
+    "message": "Has Synthetic Lab City approved every application?",
+    "expected_failure": "unsupported_claim"
+  }
+]
