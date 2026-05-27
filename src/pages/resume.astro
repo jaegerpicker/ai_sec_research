@@ -1,0 +1,604 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const capabilities = [
+  {
+    label: 'AI Threat Research',
+    details:
+      'Agentic attack surface mapping, prompt-injection labs, tool-use risk analysis, and secure AI workflow review.',
+  },
+  {
+    label: 'Security Architecture',
+    details:
+      'Application security assessments, secure API design, threat modeling, GraphQL review, and cloud-native guardrails.',
+  },
+  {
+    label: 'Red-Team Methodology',
+    details:
+      'Internal red-team exercises, proof-of-concept exploit development, secure code review, and attacker-informed remediation.',
+  },
+  {
+    label: 'Distributed Platforms',
+    details:
+      'IoT, smart-access, mobile, data pipeline, serverless, and event-driven systems across AWS and GCP environments.',
+  },
+  {
+    label: 'Systems Engineering',
+    details:
+      'Swift, Kotlin, C++, TypeScript, Go, Python, C#, Java, GraphQL, React, and mobile-to-cloud integration.',
+  },
+  {
+    label: 'Engineering Leadership',
+    details:
+      'Principal-level technical direction, team formation, standards, mentoring, cross-functional execution, and delivery discipline.',
+  },
+];
+
+const roles = [
+  {
+    org: 'Brivo',
+    title: 'Lead Software Engineer',
+    meta: 'December 2023 - Present / Remote',
+    bullets: [
+      'Leads design and delivery for distributed smart-access and IoT platforms with security-first architecture as a core constraint.',
+      'Drives threat modeling, secure code review, CI/CD hardening, and cross-team alignment between engineering, product, and security.',
+      'Translates platform risk into practical engineering decisions for systems that connect cloud services, devices, and user workflows.',
+    ],
+  },
+  {
+    org: 'Riffle Analytics',
+    title: 'Lead AI and Mobile Engineer',
+    meta: 'February 2019 - December 2023 / Portland, Maine area',
+    bullets: [
+      'Built privacy-aware native mobile applications in Swift, Kotlin, and C++ for data-sensitive workflows.',
+      'Designed Python and Node.js data pipelines feeding ML systems while keeping user data protection and operational boundaries visible.',
+      'Created internal tooling and review practices to improve mobile security posture and application resilience.',
+    ],
+  },
+  {
+    org: 'VividCloud',
+    title: 'Principal Software Engineer 2',
+    meta: 'August 2020 - November 2023 / Brunswick, Maine',
+    bullets: [
+      'Led multi-disciplinary teams across Python, .NET, Java, and Swift projects with an emphasis on secure, scalable architecture.',
+      'Ran internal red-team assessments and security reviews for client systems, turning findings into engineering priorities.',
+      'Advised on mobile application security, distributed system design, and cloud infrastructure practices with DevSecOps partners.',
+    ],
+  },
+  {
+    org: 'GrowFlow Corp',
+    title: 'Mobile Engineering Lead and Manager',
+    meta: 'May 2019 - August 2020 / Remote',
+    bullets: [
+      'Managed and grew a cross-platform mobile engineering team building React Native and TypeScript products.',
+      'Designed backend services and GraphQL APIs around role-based access, data integrity, and resilience.',
+      'Introduced secure development lifecycle practices and peer security reviews into normal delivery routines.',
+    ],
+  },
+  {
+    org: 'Minnow',
+    title: 'Director of Engineering, Mobile',
+    meta: 'January 2018 - December 2019 / Portland, Maine area',
+    bullets: [
+      'Owned Swift and Kotlin mobile architecture for distributed, sensor-driven systems connected to IoT and backend platforms.',
+      'Coordinated mobile, hardware, and backend work across Go, Elixir, and Python services with security and quality standards in view.',
+      'Managed contractor teams and established practices for testing, threat mitigation, and maintainable delivery.',
+    ],
+  },
+  {
+    org: 'Vox Media',
+    title: 'Application Security Engineer',
+    meta: 'June 2017 - August 2018 / Portland, Maine area',
+    bullets: [
+      'Led internal red-team operations covering application-layer penetration testing, vulnerability research, and proof-of-concept exploits.',
+      'Partnered with development teams on secure code review, threat modeling, infrastructure hardening, and SecDevOps pipelines.',
+      'Built security-conscious product features and data pipelines across TypeScript, React, Swift, ARKit, Python, and GCP Dataflow.',
+    ],
+  },
+  {
+    org: 'Vets First Choice',
+    title: 'Director of Engineering - Mobile and Web Front End',
+    meta: 'March 2014 - June 2017 / Portland, Maine area',
+    bullets: [
+      'Built and led multiple engineering teams delivering native iOS, Android, web, GraphQL, and data pipeline systems.',
+      'Designed AWS platform foundations and backend services using TypeScript, Node.js, Python, and GraphQL.',
+      'Balanced hands-on engineering with team leadership, hiring, standards, and technical direction for mobile and web products.',
+    ],
+  },
+];
+
+const earlySystems = [
+  '1999 - 2002: Built early web, reporting, financial-market, and EDI systems with PHP, Python, Perl, MySQL, ASP, VB6, and ASP.NET.',
+  '2003 - 2011: Delivered line-of-business platforms across Rails, Django, PHP, C#, SQL Server, Oracle, and ASP.NET MVC.',
+  '2011 - 2014: Moved deeper into mobile, microservices, and API systems with Objective-C, Java Android, Python, Go, Node.js, and JavaScript.',
+];
+
+const signals = [
+  {
+    label: 'Lab Writeup',
+    title: 'Breaking Agents to Build Better Ones: LLM01 Prompt Injection',
+    href: `${base}/blog/breaking-agents-llm01-prompt-injection`,
+    details:
+      'A local RAG prompt-injection lab for testing agent trust boundaries, attack success, and defensive spotlighting.',
+  },
+  {
+    label: 'Field Notes',
+    title: 'What I Learned Building Production Agents',
+    href: `${base}/blog/production-agent-attack-surface`,
+    details:
+      'A practical map of input, tool, memory, and orchestration risks in production agent workflows.',
+  },
+  {
+    label: 'Supply Chain',
+    title: 'Supply Chain Attacks on AI Tooling',
+    href: `${base}/blog/shai-hulud-ai-tooling`,
+    details:
+      'Notes on AI developer environment risk, package compromise response, offline scanners, and provenance gaps.',
+  },
+  {
+    label: 'LinkedIn Publication',
+    title: "Testing and Packaging JavaScript: Js's final frontier",
+    href: 'https://www.linkedin.com/in/shawnmcampbell/details/publications/',
+    details:
+      'A published presentation on front-end testing and packaging practices that prefigures later delivery and security automation work.',
+  },
+  {
+    label: 'LinkedIn Publication',
+    title: "Servers: We don't need any stinkin' servers",
+    href: 'https://www.linkedin.com/in/shawnmcampbell/details/publications/',
+    details:
+      'Serverless architecture material from the public profile, relevant to cloud-native system design and operational tradeoffs.',
+  },
+];
+---
+
+<BaseLayout
+  title="Resume — Shawn Campbell"
+  description="Mission dossier for Shawn Campbell: AI security, secure systems architecture, red-team methodology, and engineering leadership."
+>
+  <article class="resume-dossier">
+    <section class="hero-panel">
+      <div>
+        <p class="kicker">Mission Profile</p>
+        <h1>Shawn Campbell</h1>
+        <p class="role-line">
+          AI security researcher, secure systems architect, red-team practitioner,
+          and hands-on engineering leader.
+        </p>
+        <p class="mission-copy">
+          Shawn Campbell builds and reviews systems where software, agents,
+          devices, data, and teams intersect. His work centers on secure
+          foundations: AI threat research, application security, distributed
+          platforms, mobile and IoT depth, and leadership that turns risk into
+          clear engineering practice.
+        </p>
+        <ul class="badge-row" aria-label="Mission badges">
+          <li>AI Security</li>
+          <li>Red Team</li>
+          <li>Secure Systems</li>
+          <li>Engineering Leadership</li>
+          <li>Distributed Platforms</li>
+        </ul>
+      </div>
+
+      <aside class="contact-panel" aria-label="Profile telemetry">
+        <p class="panel-label">Telemetry</p>
+        <dl>
+          <div>
+            <dt>Operating Mode</dt>
+            <dd>Principal IC / technical lead / security partner</dd>
+          </div>
+          <div>
+            <dt>Primary Focus</dt>
+            <dd>Agentic AI security, appsec, mobile, IoT, cloud platforms</dd>
+          </div>
+          <div>
+            <dt>Signal</dt>
+            <dd>25 years building systems, teams, and security practices</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="dossier-section" aria-labelledby="capabilities-heading">
+      <p class="kicker">Capabilities Matrix</p>
+      <h2 id="capabilities-heading">Security-First Engineering Surface</h2>
+      <div class="capability-grid">
+        {capabilities.map((capability) => (
+          <article class="capability-card">
+            <h3>{capability.label}</h3>
+            <p>{capability.details}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="dossier-section" aria-labelledby="record-heading">
+      <p class="kicker">Operational Record</p>
+      <h2 id="record-heading">Recent Assignments</h2>
+      <div class="timeline">
+        {roles.map((role) => (
+          <article class="role-card">
+            <div class="role-header">
+              <div>
+                <h3>{role.org}</h3>
+                <p>{role.title}</p>
+              </div>
+              <span>{role.meta}</span>
+            </div>
+            <ul>
+              {role.bullets.map((bullet) => <li>{bullet}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="dossier-section" aria-labelledby="early-heading">
+      <p class="kicker">Early Systems Work</p>
+      <h2 id="early-heading">Foundation Layer</h2>
+      <ol class="early-list">
+        {earlySystems.map((item) => <li>{item}</li>)}
+      </ol>
+    </section>
+
+    <section class="dossier-section" aria-labelledby="signals-heading">
+      <p class="kicker">Selected Signals</p>
+      <h2 id="signals-heading">Research, Writing, and Public Artifacts</h2>
+      <div class="signals-grid">
+        {signals.map((signal) => (
+          <a class="signal-card" href={signal.href}>
+            <span>{signal.label}</span>
+            <strong>{signal.title}</strong>
+            <p>{signal.details}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="dossier-section contact-panel" aria-labelledby="links-heading">
+      <p class="kicker">Professional Links</p>
+      <h2 id="links-heading">Public Channels</h2>
+      <nav class="contact-links" aria-label="Professional links">
+        <a href="https://www.linkedin.com/in/shawnmcampbell">LinkedIn</a>
+        <a href="https://github.com/jaegerpicker">GitHub</a>
+        <a href={`${base}/blog`}>Blog</a>
+      </nav>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    background:
+      radial-gradient(circle at 76% 10%, rgba(73, 210, 224, 0.1), transparent 26rem),
+      linear-gradient(135deg, #07111b 0%, #101923 48%, #0b1119 100%);
+    color: #d9e4ea;
+  }
+
+  :global(main) {
+    width: min(1180px, calc(100% - 2rem));
+    max-width: none;
+  }
+
+  .resume-dossier {
+    --panel: rgba(12, 25, 36, 0.82);
+    --panel-strong: rgba(15, 33, 48, 0.94);
+    --line: rgba(94, 218, 231, 0.32);
+    --line-strong: rgba(94, 218, 231, 0.62);
+    --amber: #e4ad54;
+    --cyan: #5edae7;
+    --muted: #9fb3bf;
+    position: relative;
+    display: grid;
+    gap: 1.2rem;
+    padding: 2rem 0 3rem;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .resume-dossier::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(94, 218, 231, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(94, 218, 231, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 82%);
+  }
+
+  .hero-panel,
+  .dossier-section,
+  .contact-panel,
+  .capability-card,
+  .role-card,
+  .signal-card {
+    position: relative;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(135deg, rgba(94, 218, 231, 0.08), transparent 16rem),
+      var(--panel);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+  }
+
+  .hero-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.36fr);
+    gap: 1rem;
+    overflow: hidden;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .hero-panel::after {
+    content: "";
+    position: absolute;
+    right: -8rem;
+    top: -9rem;
+    width: 24rem;
+    aspect-ratio: 1;
+    border: 1px solid rgba(228, 173, 84, 0.28);
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 4rem rgba(94, 218, 231, 0.02),
+      0 0 0 3.5rem rgba(94, 218, 231, 0.03);
+    pointer-events: none;
+  }
+
+  .kicker,
+  .panel-label {
+    margin: 0 0 0.6rem;
+    color: var(--amber);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 0.6rem;
+    color: #f4fbff;
+    font-size: clamp(2.5rem, 8vw, 5.6rem);
+    line-height: 0.92;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #ecf8fb;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+
+  h3 {
+    margin-bottom: 0.45rem;
+    color: #f7fbfd;
+    font-size: 1rem;
+  }
+
+  .role-line {
+    max-width: 48rem;
+    color: #bfeef4;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    line-height: 1.45;
+  }
+
+  .mission-copy {
+    max-width: 58rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .badge-row,
+  .role-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .badge-row li,
+  .contact-links a {
+    border: 1px solid rgba(228, 173, 84, 0.4);
+    background: rgba(228, 173, 84, 0.08);
+    color: #ffe2ad;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .badge-row li {
+    padding: 0.45rem 0.6rem;
+  }
+
+  .contact-panel {
+    background-color: var(--panel-strong);
+    padding: 1rem;
+  }
+
+  .contact-panel dl {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+  }
+
+  .contact-panel dt {
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .contact-panel dd {
+    margin: 0.2rem 0 0;
+    color: #dce8ed;
+    line-height: 1.45;
+  }
+
+  .dossier-section {
+    padding: clamp(1rem, 2.5vw, 1.45rem);
+  }
+
+  .capability-grid,
+  .signals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .capability-card,
+  .signal-card {
+    min-height: 100%;
+    padding: 1rem;
+  }
+
+  .capability-card p,
+  .signal-card p,
+  .role-card li,
+  .early-list li {
+    color: var(--muted);
+    line-height: 1.62;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .role-card {
+    padding: 1rem;
+  }
+
+  .role-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.34fr);
+    gap: 1rem;
+    border-bottom: 1px solid rgba(94, 218, 231, 0.18);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .role-header p,
+  .role-header span {
+    margin: 0;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.78rem;
+  }
+
+  .role-header span {
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .role-card li {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .role-card li + li {
+    margin-top: 0.45rem;
+  }
+
+  .role-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.38rem;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .early-list {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .early-list li::marker {
+    color: var(--amber);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-weight: 700;
+  }
+
+  .signal-card {
+    display: grid;
+    gap: 0.45rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .signal-card:hover,
+  .signal-card:focus-visible,
+  .contact-links a:hover,
+  .contact-links a:focus-visible {
+    border-color: var(--line-strong);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(94, 218, 231, 0.13);
+  }
+
+  .signal-card span {
+    color: var(--amber);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .signal-card strong {
+    color: #f7fbfd;
+    line-height: 1.35;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.65rem 0.85rem;
+    text-decoration: none;
+  }
+
+  @media (max-width: 860px) {
+    :global(main) {
+      width: min(100% - 1rem, 1180px);
+    }
+
+    .hero-panel,
+    .role-header {
+      grid-template-columns: 1fr;
+    }
+
+    .capability-grid,
+    .signals-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .role-header span {
+      text-align: left;
+    }
+  }
+</style>
