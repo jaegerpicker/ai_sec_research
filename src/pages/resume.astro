@@ -278,7 +278,7 @@ const signals = [
     color: #d9e4ea;
   }
 
-  :global(main) {
+  :global(body main) {
     width: min(1180px, calc(100% - 2rem));
     max-width: none;
   }
@@ -582,23 +582,29 @@ const signals = [
     text-decoration: none;
   }
 
-  @media (max-width: 860px) {
-    :global(main) {
-      width: min(100% - 1rem, 1180px);
-    }
-
+  @media (max-width: 1100px) {
     .hero-panel,
     .role-header {
       grid-template-columns: 1fr;
     }
 
-    .capability-grid,
-    .signals-grid {
-      grid-template-columns: 1fr;
+    .hero-panel::after {
+      opacity: 0.45;
     }
 
     .role-header span {
       text-align: left;
+    }
+  }
+
+  @media (max-width: 860px) {
+    :global(body main) {
+      width: min(100% - 1rem, 1180px);
+    }
+
+    .capability-grid,
+    .signals-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
