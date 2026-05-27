@@ -45,7 +45,7 @@ future issue explicitly authorizes that work and records the authorization.
 | `LLM04:2025` Data and Model Poisoning | Training or retrieval corpus includes poisoned examples that bias future answers or create a trigger phrase. | Payloads query for trigger behavior and measure whether poisoned examples dominate retrieval or response. | Corpus provenance, review gates, poisoning scans, and retrieval result auditing. | Blog post: poisoning as persistence; talk section on memory and corpus trust. | #39; first lab slice built |
 | `LLM05:2025` Improper Output Handling | Agent output is passed into a downstream renderer, shell-like tool, SQL builder, or ticket automation without validation. | Payloads cause the model to emit unsafe structured output that the downstream component consumes. | Schema validation, output encoding, command allowlists, and human approval for risky actions. | Blog post: model output is untrusted input; talk section on downstream blast radius. | #36; first lab slice built |
 | `LLM06:2025` Excessive Agency | Agent has broad tool access such as shell, git, ticket updates, and notification tools. | Multi-step prompts attempt to make the agent take actions beyond the user's intent. | Least-privilege tools, confirmation gates, scoped credentials, dry-run modes, and audit logs. | Blog post: agent permissions as the real risk; talk section on capability boundaries. | #40; first lab slice built |
-| `LLM07:2025` System Prompt Leakage | App includes hidden policy, routing rules, or synthetic secrets in system/developer context. | Payloads ask directly and indirectly for hidden instructions and measure leakage. | Remove secrets from prompts, split policy from runtime secrets, and test prompt-leak regressions. | Blog post: system prompts are not secret storage; talk section on misplaced trust. | #41 |
+| `LLM07:2025` System Prompt Leakage | App includes hidden policy, routing rules, or synthetic secrets in system/developer context. | Payloads ask directly and indirectly for hidden instructions and measure leakage. | Remove secrets from prompts, split policy from runtime secrets, and test prompt-leak regressions. | Blog post: system prompts are not secret storage; talk section on misplaced trust. | #41; first lab slice built |
 | `LLM08:2025` Vector and Embedding Weaknesses | Vector store contains poisoned, duplicated, or adversarially similar documents that skew retrieval. | Harness tests retrieval collisions, over-broad matches, and malicious-neighbor selection. | Metadata filters, chunk provenance, retrieval thresholds, re-ranking, and result inspection. | Blog post: vector databases as attack surface; talk section on retrieval control. | #42 |
 | `LLM09:2025` Misinformation | Agent answers confidently from stale or low-quality local sources and invents unsupported claims. | Evaluator checks citation quality, source grounding, and hallucinated assertions. | Retrieval grounding, abstention rules, citation requirements, and freshness checks. | Blog post: measuring truthfulness in agent workflows; talk section on confidence vs evidence. | #44 |
 | `LLM10:2025` Unbounded Consumption | Agent accepts prompts that cause expensive loops, huge context retrieval, or repeated tool calls. | Harness measures token, time, request count, and tool-call amplification. | Budgets, rate limits, recursion limits, context caps, and cancellation paths. | Blog post: denial of wallet and runaway agents; talk section on operational controls. | #43 |
@@ -70,12 +70,17 @@ future issue explicitly authorizes that work and records the authorization.
    exposure through broad retrieval and output. First slice done in #38.
 9. Build `LLM04:2025` Data and Model Poisoning to show trigger behavior from
    unreviewed corpus examples. First slice done in #39.
+10. Build `LLM07:2025` System Prompt Leakage to show synthetic hidden prompt
+    content leaking through direct and indirect requests. First slice done in
+    #41.
 
 ## Next Work
 
 - Expand `LLM03:2025` with more supply-chain fixture variants and a blog draft
   (#37 follow-up).
-- Build `LLM07:2025` system-prompt-leakage lab (#41).
+- Build `LLM08:2025` vector-and-embedding-weaknesses lab (#42).
+- Expand `LLM07:2025` with oblique leak payloads, refusal regression tests, and
+  prompt minimization comparisons (#41 follow-up).
 - Expand `LLM04:2025` with more poisoned variants, corpus scans, and accepted
   vs rejected retrieval audit assertions (#39 follow-up).
 - Expand `LLM02:2025` with role-based payloads, field-level allowlists, and
