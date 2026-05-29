@@ -9,36 +9,68 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 ---
 
 <BaseLayout title="ai-sec-research">
-  <section class="intro">
+  <section class="home-hero panel">
+    <p class="kicker">AI Security Research / Field Notes</p>
     <h1>ai-sec-research</h1>
-    <p>
+    <p class="mission-copy">
       Notes on AI security, red teaming, and the attack surface of agentic systems.
-      Maintained by Shawn Campbell. Mostly written to think out loud about what I'm
-      breaking and building.
+      Maintained by Shawn Campbell. Written to think clearly about what breaks,
+      what defends, and what evidence survives contact with real systems.
     </p>
-    <p>
-      <a href={`${base}/blog`}>Read the blog →</a>
+    <p class="hero-link">
+      <a href={`${base}/blog`}>Read the blog</a>
     </p>
   </section>
 
   {posts.length > 0 && (
-    <section>
-      <h2>Latest</h2>
-      <ul class="post-list">
+    <section class="latest-section" aria-labelledby="latest-heading">
+      <p class="kicker">Latest Signals</p>
+      <h2 id="latest-heading">Recent Notes</h2>
+      <div class="post-grid">
         {posts.map((post) => (
-          <li>
-            <a href={`${base}/blog/${post.id}`}>{post.data.title}</a>
+          <a class="signal-card" href={`${base}/blog/${post.id}`}>
+            <span class="signal-card__label">Post</span>
+            <span class="signal-card__title">{post.data.title}</span>
             <p class="muted">{post.data.description}</p>
-          </li>
+          </a>
         ))}
-      </ul>
+      </div>
     </section>
   )}
 </BaseLayout>
 
 <style>
-  .intro { margin-bottom: 2rem; }
-  .post-list { list-style: none; padding: 0; }
-  .post-list li { margin-bottom: 1.25rem; }
-  .post-list p { margin: 0.25rem 0 0; font-size: 0.95em; }
+  .home-hero {
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .home-hero h1 {
+    margin: 0;
+  }
+
+  .mission-copy {
+    max-width: 48rem;
+    color: var(--fg-muted);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+  }
+
+  .hero-link {
+    margin-bottom: 0;
+  }
+
+  .latest-section {
+    margin-top: 1.25rem;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  @media (max-width: 760px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

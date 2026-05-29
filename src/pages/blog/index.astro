@@ -16,52 +16,51 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 ---
 
 <BaseLayout title="Blog — ai-sec-research" description="All posts">
-  <h1>Blog</h1>
+  <section class="blog-index panel">
+    <p class="kicker">Signal Archive</p>
+    <h1>Blog</h1>
+    <p class="muted">
+      Field notes, lab writeups, and practical analysis from AI security work.
+    </p>
+  </section>
+
   {posts.length === 0 ? (
     <p class="muted">No posts yet.</p>
   ) : (
-    <ul class="post-list">
+    <div class="post-list">
       {posts.map((post) => (
-        <li>
-          <div class="post-row">
-            <a href={`${base}/blog/${post.id}`}>
-              {post.data.draft && <span class="draft-tag">draft</span>}
-              {post.data.title}
-            </a>
-            <time class="muted" datetime={post.data.pubDate.toISOString()}>
-              {dateFmt.format(post.data.pubDate)}
-            </time>
-          </div>
+        <a class="signal-card" href={`${base}/blog/${post.id}`}>
+          <span class="signal-card__label">
+            {post.data.draft ? 'Draft' : 'Post'}
+          </span>
+          <span class="signal-card__title">{post.data.title}</span>
+          <time class="signal-card__meta" datetime={post.data.pubDate.toISOString()}>
+            {dateFmt.format(post.data.pubDate)}
+          </time>
           <p class="muted">{post.data.description}</p>
-        </li>
+        </a>
       ))}
-    </ul>
+    </div>
   )}
 </BaseLayout>
 
 <style>
-  .post-list { list-style: none; padding: 0; }
-  .post-list li { margin-bottom: 1.5rem; }
-  .post-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
+  .blog-index {
+    margin-bottom: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
   }
-  .post-row time { font-size: 0.85em; white-space: nowrap; }
-  .post-list p { margin: 0.25rem 0 0; font-size: 0.95em; }
-  .draft-tag {
-    display: inline-block;
-    padding: 0 0.4em;
-    margin-right: 0.4em;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    font-size: 0.7em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--fg-muted);
-    vertical-align: middle;
+
+  .blog-index h1 {
+    margin: 0 0 0.75rem;
+  }
+
+  .blog-index p {
+    max-width: 42rem;
+    margin-bottom: 0;
+  }
+
+  .post-list {
+    display: grid;
+    gap: 0.9rem;
   }
 </style>
