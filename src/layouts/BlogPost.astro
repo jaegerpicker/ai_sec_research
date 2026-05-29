@@ -21,55 +21,87 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 ---
 
 <BaseLayout title={title} description={description}>
-  <article>
-    <header class="post-header">
-      {draft && <p class="draft-banner">DRAFT — not yet published</p>}
+  <article class="post-shell">
+    <header class="post-header panel">
+      {draft && <p class="draft-banner">Draft - not yet published</p>}
+      <p class="kicker">Field Note</p>
       <h1>{title}</h1>
+      <p class="description">{description}</p>
       <p class="meta">
         <time datetime={pubDate.toISOString()}>{dateFmt.format(pubDate)}</time>
         {updatedDate && (
-          <> · updated <time datetime={updatedDate.toISOString()}>{dateFmt.format(updatedDate)}</time></>
-        )}
-        {tags.length > 0 && (
-          <> · {tags.map((t) => <span class="tag">{t}</span>)}</>
+          <> / updated <time datetime={updatedDate.toISOString()}>{dateFmt.format(updatedDate)}</time></>
         )}
       </p>
+      {tags.length > 0 && (
+        <ul class="tag-list" aria-label="Post tags">
+          {tags.map((t) => <li>{t}</li>)}
+        </ul>
+      )}
     </header>
-    <slot />
+
+    <div class="prose post-body">
+      <slot />
+    </div>
   </article>
   <Giscus />
 </BaseLayout>
 
 <style>
-  .post-header { margin-bottom: 2rem; }
-  .post-header h1 { margin: 0.5rem 0; }
+  .post-shell {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+  }
+
+  .post-header {
+    width: min(100%, var(--article-width));
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .post-header h1 {
+    margin: 0.35rem 0 0.75rem;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+  }
+
+  .description {
+    color: var(--fg-muted);
+    font-size: 1.08rem;
+  }
+
   .meta {
     color: var(--fg-muted);
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
   }
-  .tag {
-    display: inline-block;
-    padding: 0.1em 0.5em;
-    margin-right: 0.25em;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.8em;
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
   }
+
+  .tag-list li,
+  .draft-banner {
+    border: 1px solid rgba(228, 173, 84, 0.42);
+    background: rgba(228, 173, 84, 0.08);
+    color: var(--warning-strong);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    text-transform: uppercase;
+  }
+
   .draft-banner {
     display: inline-block;
-    padding: 0.25em 0.6em;
-    background: #fff4ce;
-    color: #5c3c00;
-    border-radius: 4px;
-    font-size: 0.8em;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    margin: 0 0 0.75rem;
   }
-  @media (prefers-color-scheme: dark) {
-    .draft-banner {
-      background: #3d2e00;
-      color: #fadc6a;
-    }
+
+  .post-body {
+    width: min(100%, var(--article-width));
   }
 </style>
