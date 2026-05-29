@@ -20,26 +20,56 @@ const links = [
 <style>
   header {
     border-bottom: 1px solid var(--border);
-    padding: 1rem 1.25rem;
+    background: rgba(5, 10, 17, 0.72);
+    backdrop-filter: blur(14px);
   }
+
   nav {
-    max-width: 720px;
+    width: min(var(--shell-width), calc(100% - 2rem));
     margin: 0 auto;
+    padding: 0.9rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
   }
+
   .brand {
-    font-family: var(--font-mono);
-    font-weight: 600;
     color: var(--fg);
+    font-family: var(--font-mono);
+    font-weight: 700;
   }
+
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.35rem 0.9rem;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--warning-strong);
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    nav {
+      width: min(100% - 1rem, var(--shell-width));
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    ul {
+      justify-content: flex-start;
+    }
   }
 </style>

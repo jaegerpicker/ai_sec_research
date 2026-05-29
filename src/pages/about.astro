@@ -1,17 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="About — ai-sec-research" description="About Shawn Campbell and this site.">
-  <h1>About</h1>
-  <p>
-    I'm Shawn Campbell, a security/software engineer working on AI red teaming
-    and the security of agentic systems. This site is where I publish writeups
-    from my personal AI red-team lab and notes on supply-chain and
-    agent-attack-surface work.
-  </p>
-  <p>
-    Find me on
-    <a href="https://github.com/jaegerpicker">GitHub</a>.
-  </p>
+  <section class="about-panel panel">
+    <p class="kicker">Profile</p>
+    <h1>About</h1>
+    <p>
+      I'm Shawn Campbell, a security/software engineer working on AI red teaming
+      and the security of agentic systems. This site is where I publish writeups
+      from my personal AI red-team lab and notes on supply-chain and
+      agent-attack-surface work.
+    </p>
+    <nav class="about-links" aria-label="Profile links">
+      <a href="https://github.com/jaegerpicker">GitHub</a>
+      <a href={`${base}/blog`}>Blog</a>
+      <a href={`${base}/resume`}>Resume</a>
+    </nav>
+  </section>
 </BaseLayout>
+
+<style>
+  .about-panel {
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .about-panel h1 {
+    margin: 0 0 0.75rem;
+  }
+
+  .about-panel p {
+    max-width: 44rem;
+    color: var(--fg-muted);
+  }
+
+  .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .about-links a {
+    border: 1px solid var(--border);
+    color: var(--link);
+    font-family: var(--font-mono);
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .about-links a:hover,
+  .about-links a:focus-visible {
+    border-color: var(--border-strong);
+    color: var(--warning-strong);
+    text-decoration: none;
+  }
+</style>
