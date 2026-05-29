@@ -271,43 +271,11 @@ const signals = [
 </BaseLayout>
 
 <style>
-  :global(body) {
-    background:
-      radial-gradient(circle at 76% 10%, rgba(73, 210, 224, 0.1), transparent 26rem),
-      linear-gradient(135deg, #07111b 0%, #101923 48%, #0b1119 100%);
-    color: #d9e4ea;
-  }
-
-  :global(body main) {
-    width: min(1180px, calc(100% - 2rem));
-    max-width: none;
-  }
-
   .resume-dossier {
-    --panel: rgba(12, 25, 36, 0.82);
-    --panel-strong: rgba(15, 33, 48, 0.94);
-    --line: rgba(94, 218, 231, 0.32);
-    --line-strong: rgba(94, 218, 231, 0.62);
-    --amber: #e4ad54;
-    --cyan: #5edae7;
-    --muted: #9fb3bf;
     position: relative;
     display: grid;
     gap: 1.2rem;
     padding: 2rem 0 3rem;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .resume-dossier::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(94, 218, 231, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(94, 218, 231, 0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 82%);
   }
 
   .hero-panel,
@@ -317,11 +285,11 @@ const signals = [
   .role-card,
   .signal-card {
     position: relative;
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
     background:
       linear-gradient(135deg, rgba(94, 218, 231, 0.08), transparent 16rem),
-      var(--panel);
-    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+      var(--bg-panel);
+    box-shadow: var(--panel-shadow);
   }
 
   .hero-panel {
@@ -350,8 +318,8 @@ const signals = [
   .kicker,
   .panel-label {
     margin: 0 0 0.6rem;
-    color: var(--amber);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--warning);
+    font-family: var(--font-mono);
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0;
@@ -367,33 +335,33 @@ const signals = [
 
   h1 {
     margin-bottom: 0.6rem;
-    color: #f4fbff;
+    color: var(--fg);
     font-size: clamp(2.5rem, 8vw, 5.6rem);
     line-height: 0.92;
   }
 
   h2 {
     margin-bottom: 1rem;
-    color: #ecf8fb;
+    color: var(--fg);
     font-size: clamp(1.4rem, 3vw, 2rem);
   }
 
   h3 {
     margin-bottom: 0.45rem;
-    color: #f7fbfd;
+    color: var(--fg);
     font-size: 1rem;
   }
 
   .role-line {
     max-width: 48rem;
-    color: #bfeef4;
+    color: var(--accent-strong);
     font-size: clamp(1.05rem, 2.2vw, 1.35rem);
     line-height: 1.45;
   }
 
   .mission-copy {
     max-width: 58rem;
-    color: var(--muted);
+    color: var(--fg-muted);
     line-height: 1.75;
   }
 
@@ -414,8 +382,8 @@ const signals = [
   .contact-links a {
     border: 1px solid rgba(228, 173, 84, 0.4);
     background: rgba(228, 173, 84, 0.08);
-    color: #ffe2ad;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--warning-strong);
+    font-family: var(--font-mono);
     font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0;
@@ -427,7 +395,7 @@ const signals = [
   }
 
   .contact-panel {
-    background-color: var(--panel-strong);
+    background-color: var(--bg-panel-strong);
     padding: 1rem;
   }
 
@@ -438,8 +406,8 @@ const signals = [
   }
 
   .contact-panel dt {
-    color: var(--cyan);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--accent);
+    font-family: var(--font-mono);
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -447,7 +415,7 @@ const signals = [
 
   .contact-panel dd {
     margin: 0.2rem 0 0;
-    color: #dce8ed;
+    color: var(--fg);
     line-height: 1.45;
   }
 
@@ -472,7 +440,7 @@ const signals = [
   .signal-card p,
   .role-card li,
   .early-list li {
-    color: var(--muted);
+    color: var(--fg-muted);
     line-height: 1.62;
   }
 
@@ -497,13 +465,13 @@ const signals = [
   .role-header p,
   .role-header span {
     margin: 0;
-    color: var(--cyan);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--accent);
+    font-family: var(--font-mono);
     font-size: 0.78rem;
   }
 
   .role-header span {
-    color: var(--muted);
+    color: var(--fg-muted);
     text-align: right;
   }
 
@@ -523,7 +491,7 @@ const signals = [
     top: 0.72em;
     width: 0.38rem;
     height: 1px;
-    background: var(--amber);
+    background: var(--warning);
   }
 
   .early-list {
@@ -534,8 +502,8 @@ const signals = [
   }
 
   .early-list li::marker {
-    color: var(--amber);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--warning);
+    font-family: var(--font-mono);
     font-weight: 700;
   }
 
@@ -550,21 +518,21 @@ const signals = [
   .signal-card:focus-visible,
   .contact-links a:hover,
   .contact-links a:focus-visible {
-    border-color: var(--line-strong);
+    border-color: var(--border-strong);
     outline: none;
     box-shadow: 0 0 0 3px rgba(94, 218, 231, 0.13);
   }
 
   .signal-card span {
-    color: var(--amber);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    color: var(--warning);
+    font-family: var(--font-mono);
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
   }
 
   .signal-card strong {
-    color: #f7fbfd;
+    color: var(--fg);
     line-height: 1.35;
   }
 
@@ -598,10 +566,6 @@ const signals = [
   }
 
   @media (max-width: 860px) {
-    :global(body main) {
-      width: min(100% - 1rem, 1180px);
-    }
-
     .capability-grid,
     .signals-grid {
       grid-template-columns: 1fr;
