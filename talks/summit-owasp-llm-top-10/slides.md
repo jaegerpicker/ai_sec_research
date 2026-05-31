@@ -272,11 +272,10 @@ Ask:
 
 If time permits:
 
-1. Start the local lab.
-2. Show the poisoned fixture.
-3. Run the attack harness with defense off.
-4. Run it again with defense on.
-5. Compare the result files.
+1. Show the poisoned fixture.
+2. Run the in-process comparison harness.
+3. Display the defense-off and defense-on summary fields.
+4. Compare the attack-success-rate delta.
 
 If time is tight, use the captured output and keep moving.
 
@@ -333,18 +332,26 @@ Good prompts:
 
 ```bash
 # Measured comparison, from repo root
-.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --mode compare
-cat lab/evals/results/v0-rag-latest.json
+.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --mode compare > /tmp/llm01-compare.json
+.venv/bin/python - <<'PY'
+import json
+result = json.load(open("lab/evals/results/v0-rag-latest.json"))
+off = result["defense_off"]
+on = result["defense_on"]
+print(f"defense off: {off['successes']}/{off['total_attempts']} ASR {off['attack_success_rate']}")
+print(f"defense on: {on['successes']}/{on['total_attempts']} ASR {on['attack_success_rate']}")
+print(f"absolute reduction: {result['delta']['absolute_reduction']}")
+PY
 
 # Optional visual HTTP target in Terminal 1
 cd lab
 docker compose up --build
 
 # Optional HTTP smoke in Terminal 2, from repo root
-.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --target http --mode off
+.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --target http --mode off > /tmp/llm01-http.json
 ```
 
-The demo runbook will expand this into a timed live path and fallback path.
+The demo runbook expands this into a timed live path and fallback path.
 
 ---
 
