@@ -1,5 +1,10 @@
 # Breaking Agents to Build Better Ones
 
+> Package status: this outline is the planning index. The current delivery
+> artifact is `abstract.md`. Planned delivery artifacts are `slides.md`,
+> `speaker-notes.md`, `demo-runbook.md`, and the public web route at
+> `src/pages/talks/summit-owasp-llm-top-10.astro`.
+
 ## Subtitle
 
 A hands-on lab for the OWASP Top 10 for LLM Applications.
@@ -29,7 +34,7 @@ By the end of the talk, the audience should understand:
 - How defenses should be evaluated with attack success rate, not vibes.
 - Which questions to ask during agent design review.
 
-## Candidate Abstract
+## Planning Abstract
 
 AI security can feel abstract until you build the bug yourself. This talk walks
 through a local AI red-team lab built around the OWASP Top 10 for LLM
@@ -44,14 +49,19 @@ first.
 
 ## Format
 
-Target length: 30 minutes plus questions.
+Accepted slot: 30 minutes total.
+
+- 25 minutes: prepared talk.
+- 5 minutes: Q&A, padding, or demo recovery.
+
+Prepared talk timing:
 
 - 3 minutes: motivation and framing.
-- 7 minutes: OWASP LLM Top 10 as an engineering map.
-- 10 minutes: live or recorded `LLM01` prompt-injection lab demo.
-- 5 minutes: defenses and measurement.
-- 3 minutes: roadmap across the other OWASP modules.
-- 2 minutes: design-review checklist and close.
+- 6 minutes: OWASP LLM Top 10 as an engineering map.
+- 9 minutes: live or recorded `LLM01` prompt-injection lab demo.
+- 4 minutes: defenses and measurement.
+- 2 minutes: roadmap across the other OWASP modules.
+- 1 minute: design-review checklist and close.
 
 ## Demo Plan
 
