@@ -6,18 +6,11 @@
 //   2. Install the giscus app: https://github.com/apps/giscus
 //   3. Visit https://giscus.app, fill in the form, copy the data-* values below.
 //   4. Replace the REPLACE_ME placeholders.
-//   5. Remove the `disabled` wrapper.
-const disabled = true;
+//   5. Set `commentsEnabled` to true.
+const commentsEnabled = true;
 ---
 
-{disabled ? (
-  <div class="giscus-placeholder">
-    <p class="muted">
-      Comments are not yet configured. Configure Giscus in
-      <code>src/components/Giscus.astro</code>.
-    </p>
-  </div>
-) : (
+{commentsEnabled && (
   <script src="https://giscus.app/client.js"
         data-repo="jaegerpicker/ai_sec_research"
         data-repo-id="R_kgDOScw3Gg"
@@ -35,13 +28,3 @@ const disabled = true;
         async>
 </script>
 )}
-
-<style>
-  .giscus-placeholder {
-    margin-top: 3rem;
-    padding: 1rem;
-    border: 1px dashed var(--border);
-    border-radius: 6px;
-    text-align: center;
-  }
-</style>
