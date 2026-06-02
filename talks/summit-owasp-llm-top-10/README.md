@@ -23,21 +23,18 @@ Current package artifacts:
 
 - `abstract.md` - final title, abstract, audience, and takeaways.
 - `outline.md` - planning index for the talk package.
-
-Planned package artifacts:
-
 - `slides.md` - repo-native slide source for review and Google Slides mirroring.
 - `speaker-notes.md` - slide-by-slide narration notes and timing.
 - `demo-runbook.md` - live demo setup, commands, fallback, and recovery path.
-- `assets/` - local diagrams or images used by the deck.
-- `exports/` - exported PDF or HTML artifacts when generated.
+- `assets/` - local diagrams or images used by the deck, plus asset policy.
+- `exports/` - exported PDF or HTML artifacts when generated, plus export policy.
 
 ## Viewing Paths
 
-- Live delivery: planned Google Slides copy created from `slides.md`.
-- Repo-native slide source: planned `slides.md`.
-- Public web version: planned at `/talks/summit-owasp-llm-top-10/` once
-  deployed.
+- Live delivery: Google Slides copy created from `slides.md` before the final
+  June 20 rehearsal.
+- Repo-native slide source: `slides.md`.
+- Public web version: `/talks/summit-owasp-llm-top-10/` after deploy.
 
 ## Scope
 

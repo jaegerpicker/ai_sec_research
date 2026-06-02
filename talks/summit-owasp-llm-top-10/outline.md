@@ -1,8 +1,8 @@
 # Breaking Agents to Build Better Ones
 
-> Package status: this outline is the planning index. The current delivery
-> artifact is `abstract.md`. Planned delivery artifacts are `slides.md`,
-> `speaker-notes.md`, `demo-runbook.md`, and the public web route at
+> Package status: this outline is the planning index. The delivery package now
+> includes `abstract.md`, `slides.md`, `speaker-notes.md`, `demo-runbook.md`,
+> asset/export policy docs, and the public web route at
 > `src/pages/talks/summit-owasp-llm-top-10.astro`.
 
 ## Subtitle
@@ -139,6 +139,6 @@ Each post should use the same format:
 
 - Create the `LLM01` blog draft from the existing lab writeup.
 - Normalize the current RAG lab into the OWASP module structure.
-- Add live HTTP attack mode so the demo hits a running service.
+- Rehearse the live HTTP attack mode against the running service.
 - Create tracking issues for the remaining OWASP modules.
 - Build the `LLM03` supply-chain module next.
