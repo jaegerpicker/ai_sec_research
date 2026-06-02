@@ -1,0 +1,465 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const repoBase = 'https://github.com/jaegerpicker/ai_sec_research/blob/main';
+
+const slides = [
+  {
+    kicker: 'Field Brief',
+    title: 'Breaking Agents to Build Better Ones',
+    body: [
+      'A hands-on lab for the OWASP Top 10 for LLM Applications.',
+      'Shawn Campbell / June 23, 2026',
+    ],
+  },
+  {
+    kicker: 'Claim',
+    title: 'AI security gets easier when the risks are executable.',
+    body: [
+      'The OWASP Top 10 is the threat map. The lab is how we turn that map into engineering practice.',
+    ],
+  },
+  {
+    kicker: 'Attack Surface',
+    title: 'Agents are not just chat boxes.',
+    bullets: ['Instructions', 'Retrieved text', 'Tools', 'Memory', 'Automation', 'Downstream output'],
+  },
+  {
+    kicker: 'Untrusted Terrain',
+    title: 'Every string the agent reads can become an attack path.',
+    bullets: [
+      'Support notes',
+      'Logs',
+      'Dependency READMEs',
+      'Jira comments',
+      'Retrieved policy docs',
+      'MCP tool output',
+      'Saved memory',
+    ],
+  },
+  {
+    kicker: 'Threat Map',
+    title: 'OWASP Top 10 as engineering questions',
+    table: [
+      ['LLM01 Prompt Injection', 'What untrusted text reaches the model?'],
+      ['LLM02 Sensitive Information Disclosure', 'What data is in context that should not be?'],
+      ['LLM03 Supply Chain', 'What code or content does the agent trust?'],
+      ['LLM05 Improper Output Handling', 'Who consumes model output next?'],
+      ['LLM06 Excessive Agency', 'What can tools do if text steers them?'],
+    ],
+  },
+  {
+    kicker: 'Threat Map',
+    title: 'The rest of the map',
+    table: [
+      ['LLM04 Data and Model Poisoning', 'Can poisoned data persist or bias retrieval?'],
+      ['LLM07 System Prompt Leakage', 'Are hidden instructions treated like secrets?'],
+      ['LLM08 Vector and Embedding Weaknesses', 'Can retrieval be steered by neighbors?'],
+      ['LLM09 Misinformation', 'Can the agent prove what it says?'],
+      ['LLM10 Unbounded Consumption', 'Can prompts amplify cost, loops, or tool calls?'],
+    ],
+  },
+  {
+    kicker: 'Lab Rationale',
+    title: 'A lab turns vague risk into a measured result.',
+    bullets: [
+      'Reproduce the failure',
+      'Define attack success',
+      'Measure a baseline',
+      'Add one defense',
+      'Rerun the same harness',
+      'Compare the delta',
+    ],
+  },
+  {
+    kicker: 'Method',
+    title: 'The lab loop',
+    code: 'target -> payloads -> attack harness -> result\n   ^                                      |\n   |                                      v\ndefense toggle <- compare delta <- rerun harness',
+  },
+  {
+    kicker: 'Components',
+    title: 'What a useful AI security lab needs',
+    bullets: [
+      'Vulnerable local target',
+      'Synthetic fixtures',
+      'Payload library',
+      'Attack runner',
+      'Result file',
+      'Defense toggle',
+      'Writeup',
+      'Safety boundary',
+    ],
+  },
+  {
+    kicker: 'Demo',
+    title: 'Concrete demo: LLM01 prompt injection',
+    body: [
+      'Target: vulnerable RAG assistant.',
+      'Attack: indirect prompt injection through a retrieved document.',
+      'Goal: make the assistant follow hostile document instructions instead of the intended task boundary.',
+    ],
+  },
+  {
+    kicker: 'Attack Path',
+    title: 'The user does not have to type the attack.',
+    code: 'user question\n  -> retriever\n  -> trusted docs + attacker-controlled support note\n  -> model context\n  -> answer or unsafe action',
+  },
+  {
+    kicker: 'Metric',
+    title: 'Define success before showing results.',
+    body: [
+      'An attack succeeds when the assistant follows the injected instruction instead of the intended task boundary.',
+    ],
+    code: 'attack success rate = successful attacks / total attempts',
+  },
+  {
+    kicker: 'Baseline',
+    title: 'Defense off gives every future claim something to beat.',
+    bullets: ['Same payload set', 'Every response recorded', 'Attack objective scored', 'Structured result saved'],
+  },
+  {
+    kicker: 'Defense',
+    title: 'Spotlighting marks the trust boundary.',
+    bullets: [
+      'Preserve retrieved content',
+      'Label untrusted text',
+      'Tell the model how to treat quoted material',
+      'Measure whether behavior changes',
+    ],
+  },
+  {
+    kicker: 'Comparison',
+    title: 'Defense on changes one variable.',
+    bullets: ['Same target', 'Same payloads', 'Same scoring', 'Same result format', 'Only the defense changes'],
+  },
+  {
+    kicker: 'Evidence',
+    title: 'What this proves and does not prove',
+    table: [
+      ['Can show', 'Attack is reproducible; behavior changed in this lab; the failure can become a regression test.'],
+      ['Does not show', 'Prompt injection is solved; the defense generalizes everywhere; all future payloads fail.'],
+    ],
+  },
+  {
+    kicker: 'Scale Out',
+    title: 'The same pattern extends across the Top 10.',
+    bullets: [
+      'Supply-chain prompt injection',
+      'Data and model poisoning',
+      'Excessive agency',
+      'Improper output handling',
+      'Sensitive information disclosure',
+      'System prompt leakage',
+      'Vector retrieval weaknesses',
+      'Misinformation',
+      'Unbounded consumption',
+    ],
+  },
+  {
+    kicker: 'Next Labs',
+    title: 'Two high-value next labs',
+    table: [
+      ['LLM03 Supply Chain', 'Dependency files become prompt-injection seeds for coding agents.'],
+      ['LLM06 Excessive Agency', 'Tools turn text influence into real actions.'],
+    ],
+  },
+  {
+    kicker: 'Checklist',
+    title: 'Design-review questions',
+    bullets: [
+      'What untrusted text enters context?',
+      'What tools can the agent call?',
+      'What secrets or sensitive data can it see?',
+      'What consumes model output next?',
+      'What is logged, budgeted, and cancellable?',
+      'Can we reproduce the attack locally?',
+      'Can we measure the defense against a baseline?',
+    ],
+  },
+  {
+    kicker: 'Demo Window',
+    title: 'Live demo or recorded walkthrough',
+    bullets: [
+      'Show the poisoned fixture',
+      'Run the in-process comparison harness',
+      'Display defense-off and defense-on summary fields',
+      'Compare the attack-success-rate delta',
+    ],
+  },
+  {
+    kicker: 'Roadmap',
+    title: 'The lab grows one measured slice at a time.',
+    bullets: [
+      'First slice for each OWASP category',
+      'Richer payload variants',
+      'Stronger eval metadata',
+      'Clearer writeups',
+      'Public lesson workflow after the lab, blog, and presentation are complete',
+    ],
+  },
+  {
+    kicker: 'Close',
+    title: 'Build small broken agents. Attack them honestly. Measure what changed.',
+    body: ['Then carry the evidence back into real engineering decisions.'],
+  },
+  {
+    kicker: 'Q&A',
+    title: 'Questions, objections, and lab ideas.',
+    bullets: [
+      'Which agent input path worries you most?',
+      'Which tool permission would you remove first?',
+      'What would make this lab useful in your review process?',
+    ],
+  },
+  {
+    kicker: 'Appendix A',
+    title: 'Safety boundary',
+    bullets: [
+      'Local targets only',
+      'Synthetic data only',
+      'No real credentials',
+      'No customer data',
+      'No third-party probing',
+      'Vulnerable behavior stays inside owned lab services',
+    ],
+  },
+  {
+    kicker: 'Appendix B',
+    title: 'Demo commands',
+    body: ['Measured comparison from the repo root. The runbook expands this into a timed path.'],
+    code: '.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --mode compare > /tmp/llm01-compare.json\n.venv/bin/python -c \'import json; r=json.load(open("lab/evals/results/v0-rag-latest.json")); print(r["defense_off"]["attack_success_rate"], r["defense_on"]["attack_success_rate"], r["delta"]["absolute_reduction"])\'\n\n# Optional HTTP smoke only\n.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --target http --mode off > /tmp/llm01-http.json',
+  },
+  {
+    kicker: 'Appendix C',
+    title: 'Full module map',
+    table: [
+      ['LLM01 Prompt Injection', 'llm01-prompt-injection', `${repoBase}/lab/owasp-llm-top-10/llm01-prompt-injection/README.md`],
+      ['LLM02 Sensitive Information Disclosure', 'llm02-sensitive-information-disclosure', `${repoBase}/lab/owasp-llm-top-10/llm02-sensitive-information-disclosure/README.md`],
+      ['LLM03 Supply Chain', 'llm03-supply-chain', `${repoBase}/lab/owasp-llm-top-10/llm03-supply-chain/README.md`],
+      ['LLM04 Data and Model Poisoning', 'llm04-data-model-poisoning', `${repoBase}/lab/owasp-llm-top-10/llm04-data-model-poisoning/README.md`],
+      ['LLM05 Improper Output Handling', 'llm05-improper-output-handling', `${repoBase}/lab/owasp-llm-top-10/llm05-improper-output-handling/README.md`],
+      ['LLM06 Excessive Agency', 'llm06-excessive-agency', `${repoBase}/lab/owasp-llm-top-10/llm06-excessive-agency/README.md`],
+      ['LLM07 System Prompt Leakage', 'llm07-system-prompt-leakage', `${repoBase}/lab/owasp-llm-top-10/llm07-system-prompt-leakage/README.md`],
+      ['LLM08 Vector and Embedding Weaknesses', 'llm08-vector-embedding-weaknesses', `${repoBase}/lab/owasp-llm-top-10/llm08-vector-embedding-weaknesses/README.md`],
+      ['LLM09 Misinformation', 'llm09-misinformation', `${repoBase}/lab/owasp-llm-top-10/llm09-misinformation/README.md`],
+      ['LLM10 Unbounded Consumption', 'llm10-unbounded-consumption', `${repoBase}/lab/owasp-llm-top-10/llm10-unbounded-consumption/README.md`],
+    ],
+  },
+  {
+    kicker: 'Appendix D',
+    title: 'Metric notes',
+    bullets: [
+      'Attack success rate is successful attacks divided by total attempts',
+      'Compare defense-off and defense-on runs with the same payload set',
+      'Treat the delta as a lab signal, not a universal security claim',
+      'Keep result JSON with runner metadata, target type, payload path, and cases',
+    ],
+  },
+  {
+    kicker: 'Appendix E',
+    title: 'References',
+    table: [
+      ['OWASP Top 10 for LLM Applications', 'owasp.org/www-project-top-10-for-large-language-model-applications', 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'],
+      ['OWASP GenAI Security Project', 'genai.owasp.org', 'https://genai.owasp.org/'],
+      ['Repo lab roadmap', 'lab/owasp-llm-top-10/roadmap.md', `${repoBase}/lab/owasp-llm-top-10/roadmap.md`],
+      ['LLM01 writeup', 'lab/writeups/001-injection-via-rag.md', `${repoBase}/lab/writeups/001-injection-via-rag.md`],
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Breaking Agents to Build Better Ones"
+  description="A repo-native presentation for building AI red-team labs around the OWASP Top 10 for LLM Applications."
+>
+  <section class="talk-hero panel">
+    <p class="kicker">Presentation Package</p>
+    <h1>Breaking Agents to Build Better Ones</h1>
+    <p>
+      A hands-on lab for the OWASP Top 10 for LLM Applications. This public
+      version mirrors the repo-native slide source and is designed for post-talk
+      viewing without Google Slides.
+    </p>
+    <nav aria-label="Talk resources">
+      <a href={`${base}/talks/summit-owasp-llm-top-10`}>Public talk page</a>
+      <a href="https://github.com/jaegerpicker/ai_sec_research/tree/main/talks/summit-owasp-llm-top-10">Repo materials</a>
+    </nav>
+  </section>
+
+  <section class="slide-stack" aria-label="Slide deck">
+    {slides.map((slide, index) => (
+      <section class="slide panel" aria-labelledby={`slide-${index + 1}`}>
+        <p class="kicker">{String(index + 1).padStart(2, '0')} / {slide.kicker}</p>
+        <h2 id={`slide-${index + 1}`}>{slide.title}</h2>
+
+        {slide.body?.map((paragraph) => <p>{paragraph}</p>)}
+
+        {slide.bullets && (
+          <ul>
+            {slide.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        )}
+
+        {slide.table && (
+          <table>
+            <tbody>
+              {slide.table.map((row) => (
+                <tr>
+                  <th scope="row">{row[0]}</th>
+                  <td>{row[2] ? <a href={row[2]}>{row[1]}</a> : row[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        {slide.code && <pre><code>{slide.code}</code></pre>}
+      </section>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .talk-hero {
+    margin-bottom: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .talk-hero h1 {
+    margin: 0 0 0.75rem;
+    max-width: 13ch;
+    font-size: clamp(2.5rem, 8vw, 5.4rem);
+    line-height: 0.95;
+  }
+
+  .talk-hero p:not(.kicker) {
+    max-width: 52rem;
+    color: var(--fg-muted);
+    font-size: 1.08rem;
+  }
+
+  .talk-hero nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .talk-hero nav a {
+    border: 1px solid var(--border);
+    color: var(--link);
+    font-family: var(--font-mono);
+    padding: 0.45rem 0.7rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .talk-hero nav a:hover,
+  .talk-hero nav a:focus-visible {
+    border-color: var(--border-strong);
+    color: var(--warning-strong);
+  }
+
+  .slide-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .slide {
+    min-height: min(74vh, 44rem);
+    padding: clamp(1.25rem, 4vw, 2.4rem);
+  }
+
+  .slide h2 {
+    max-width: 18ch;
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    line-height: 1;
+  }
+
+  .slide p,
+  .slide li,
+  .slide td,
+  .slide th {
+    font-size: clamp(1rem, 1.6vw, 1.28rem);
+  }
+
+  .slide p {
+    max-width: 58rem;
+    color: var(--fg-muted);
+  }
+
+  .slide ul {
+    display: grid;
+    gap: 0.4rem;
+    max-width: 58rem;
+    padding-left: 1.2rem;
+  }
+
+  .slide li::marker {
+    color: var(--warning);
+  }
+
+  .slide table {
+    max-width: 62rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .slide td,
+  .slide th {
+    overflow-wrap: anywhere;
+  }
+
+  .slide th {
+    width: 34%;
+    color: var(--accent-strong);
+    font-family: var(--font-mono);
+    vertical-align: top;
+  }
+
+  .slide pre {
+    max-width: 62rem;
+    overflow-x: auto;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  @media print {
+    :global(header),
+    :global(footer),
+    .talk-hero {
+      display: none;
+    }
+
+    :global(main) {
+      width: 100%;
+      padding: 0;
+    }
+
+    .slide {
+      border: 1px solid #999;
+      background: #fff;
+      min-height: 100vh;
+      break-after: page;
+      color: #111;
+      box-shadow: none;
+    }
+
+    .slide h2,
+    .slide p,
+    .slide li,
+    .slide td,
+    .slide th,
+    .slide code {
+      color: #111;
+    }
+
+    .slide pre,
+    .slide th {
+      border-color: #999;
+      background: #f7f7f7;
+    }
+  }
+</style>
