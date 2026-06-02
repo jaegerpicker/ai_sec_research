@@ -31,8 +31,8 @@ Current package artifacts:
 
 ## Viewing Paths
 
-- Live delivery: Google Slides copy created from `slides.md` before the final
-  June 20 rehearsal.
+- Live delivery: Google Slides copy linked from
+  `exports/google-slides-link.md`.
 - Repo-native slide source: `slides.md`.
 - Public web version: `/talks/summit-owasp-llm-top-10/` after deploy.
 

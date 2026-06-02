@@ -6,8 +6,8 @@ ready to publish.
 ## Expected Exports
 
 - `slides.pdf` - public PDF export of the final deck.
-- `google-slides-link.md` - link to the live Google Slides delivery copy when
-  it exists.
+- `google-slides-link.md` - verified link to the live Google Slides delivery
+  copy.
 - `llm01-baseline-output.txt` - captured fallback output for the defense-off
   demo.
 - `llm01-defense-output.txt` - captured fallback output for the defense-on demo.
