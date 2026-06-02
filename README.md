@@ -30,6 +30,17 @@ tags: ["..."]          # optional
 ---
 ```
 
+## Presentation package
+
+The accepted OWASP LLM Top 10 lab talk lives in
+`talks/summit-owasp-llm-top-10/`.
+
+- Repo-native slide source: `talks/summit-owasp-llm-top-10/slides.md`
+- Speaker notes: `talks/summit-owasp-llm-top-10/speaker-notes.md`
+- Demo runbook: `talks/summit-owasp-llm-top-10/demo-runbook.md`
+- Public web version after deploy:
+  <https://sandkcampbell.com/talks/summit-owasp-llm-top-10/>
+
 ## Deployment
 
 GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys on every
@@ -40,13 +51,15 @@ push to `main`. To enable:
 
 ## Comments (Giscus)
 
-Stubbed in `src/components/Giscus.astro`. To enable:
+Giscus is configured in `src/components/Giscus.astro`.
 
-1. Enable Discussions on the repo.
-2. Install <https://github.com/apps/giscus>.
-3. Visit <https://giscus.app>, configure for this repo, copy the `data-repo-id`
-   and `data-category-id`.
-4. Edit `src/components/Giscus.astro`, paste the IDs, flip `disabled = false`.
+To maintain it:
+
+1. Keep GitHub Discussions enabled on the repo.
+2. Keep the giscus app installed: <https://github.com/apps/giscus>.
+3. Update `data-repo`, `data-repo-id`, or `data-category-id` only if the
+   repository or discussion category changes.
+4. Keep `data-theme="dark"` so comments match the dark-only site theme.
 
 ## Planning docs (not published)
 
