@@ -9,8 +9,9 @@ ready to publish.
 - `google-slides-link.md` - verified link to the live Google Slides delivery
   copy.
 - `llm01-baseline-output.txt` - captured fallback output for the defense-off
-  demo.
-- `llm01-defense-output.txt` - captured fallback output for the defense-on demo.
+  demo path.
+- `llm01-defense-output.txt` - captured fallback output for the defense-on demo
+  path.
 
 ## Rules
 
