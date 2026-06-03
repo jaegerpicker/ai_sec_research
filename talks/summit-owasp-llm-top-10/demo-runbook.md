@@ -17,7 +17,8 @@ window before Q&A.
 
 ## Timing
 
-Default path: use the prepared 25-minute talk and captured fallback output.
+Default path: use the prepared 25-minute talk and captured fallback output in
+`exports/llm01-baseline-output.txt` and `exports/llm01-defense-output.txt`.
 
 Live-demo decision point:
 
@@ -80,7 +81,10 @@ lab/evals/results/v0-rag-latest.json
 3. Run the measured off/on comparison.
 
    ```bash
-   .venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --mode compare > /tmp/llm01-compare.json
+   .venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py \
+     --mode compare \
+     --output /tmp/llm01-compare-rehearsal.json \
+     > /tmp/llm01-compare-rehearsal.out
    ```
 
    This is the primary demo command. It runs the payload suite in-process once
@@ -176,13 +180,29 @@ If the live demo fails or time is tight:
 
 ## Captured Fallback Output
 
-Use this captured dry-run result until export files are created later:
+Use the captured output files in `exports/`:
+
+- `exports/llm01-baseline-output.txt`
+- `exports/llm01-defense-output.txt`
+
+Field summary:
 
 ```text
 defense off: 3/3 ASR 1.0
 defense on: 0/3 ASR 0.0
 absolute reduction: 1.0
 ```
+
+## Rehearsal Log
+
+Last rehearsed: June 3, 2026.
+
+- In-process comparison: passed with defense off `3/3 ASR 1.0`, defense on
+  `0/3 ASR 0.0`, absolute reduction `1.0`.
+- HTTP chat smoke against Docker Compose target: passed and returned the
+  expected vulnerable synthetic flag response.
+- HTTP baseline harness against Docker Compose target: passed with
+  `3/3 ASR 1.0`.
 
 ## Recovery Lines
 
@@ -199,4 +219,5 @@ Use these if the live demo fails:
 
 - Link the public talk page from the README.
 - Link the lab roadmap and `LLM01` writeup.
-- Add the Google Slides link once the delivery copy is created.
+- Use the Google Slides link in `exports/google-slides-link.md` for live
+  delivery.
