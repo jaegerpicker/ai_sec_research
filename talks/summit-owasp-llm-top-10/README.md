@@ -27,12 +27,14 @@ Current package artifacts:
 - `speaker-notes.md` - slide-by-slide narration notes and timing.
 - `demo-runbook.md` - live demo setup, commands, fallback, and recovery path.
 - `assets/` - local diagrams or images used by the deck, plus asset policy.
-- `exports/` - exported PDF or HTML artifacts when generated, plus export policy.
+- `exports/slides.pdf` - published 28-page PDF export of the delivery deck.
+- `exports/` - Google Slides link, captured demo output, and export policy.
 
 ## Viewing Paths
 
 - Live delivery: Google Slides copy linked from
   `exports/google-slides-link.md`.
+- Published deck: `exports/slides.pdf`.
 - Repo-native slide source: `slides.md`.
 - Public web version: `/talks/summit-owasp-llm-top-10/` after deploy.
 
