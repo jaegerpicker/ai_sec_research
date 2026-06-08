@@ -27,6 +27,8 @@ Current package artifacts:
 - `speaker-notes.md` - slide-by-slide narration notes and timing.
 - `rehearsal.md` - full-run timing checkpoints, delivery preflight, and run log.
 - `qa.md` - final content, rendering, accessibility, and artifact checks.
+- `demo-preflight.py` - one-command verification of the measured demo result
+  and optional local HTTP target.
 - `demo-runbook.md` - live demo setup, commands, fallback, and recovery path.
 - `assets/` - local diagrams or images used by the deck, plus asset policy.
 - `exports/slides.pdf` - published 25-page PDF export of the delivery deck.

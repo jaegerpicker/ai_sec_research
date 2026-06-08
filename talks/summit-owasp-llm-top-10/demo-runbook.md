@@ -59,13 +59,13 @@ python3 -m venv .venv
 Run the measured comparison once before presenting:
 
 ```bash
-.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py --mode compare
+.venv/bin/python talks/summit-owasp-llm-top-10/demo-preflight.py
 ```
 
-The runner writes:
+The preflight writes the fresh comparison report to:
 
 ```text
-lab/evals/results/v0-rag-latest.json
+/tmp/llm01-compare-rehearsal.json
 ```
 
 ## Live Demo Path
@@ -95,11 +95,10 @@ lab/evals/results/v0-rag-latest.json
 
 4. Show the result fields.
 
-   The runner writes the default result file, so show the short field-focused
-   summary:
+   Show the short field-focused summary from the fresh result:
 
    ```bash
-   .venv/bin/python -c 'import json; r=json.load(open("lab/evals/results/v0-rag-latest.json")); print("defense off: {}/{} ASR {}".format(r["defense_off"]["successes"], r["defense_off"]["total_attempts"], r["defense_off"]["attack_success_rate"])); print("defense on: {}/{} ASR {}".format(r["defense_on"]["successes"], r["defense_on"]["total_attempts"], r["defense_on"]["attack_success_rate"])); print("absolute reduction: {}".format(r["delta"]["absolute_reduction"]))'
+   .venv/bin/python -c 'import json; r=json.load(open("/tmp/llm01-compare-rehearsal.json")); print("defense off: {}/{} ASR {}".format(r["defense_off"]["successes"], r["defense_off"]["total_attempts"], r["defense_off"]["attack_success_rate"])); print("defense on: {}/{} ASR {}".format(r["defense_on"]["successes"], r["defense_on"]["total_attempts"], r["defense_on"]["attack_success_rate"])); print("absolute reduction: {}".format(r["delta"]["absolute_reduction"]))'
    ```
 
    Explain the `defense_off.attack_success_rate`,
@@ -142,10 +141,7 @@ curl -s http://127.0.0.1:8000/chat \
 Or run an HTTP baseline-only harness check:
 
 ```bash
-.venv/bin/python lab/attacker/custom/run_v0_rag_attacks.py \
-  --target http \
-  --base-url http://127.0.0.1:8000 \
-  --mode off > /tmp/llm01-http.json
+.venv/bin/python talks/summit-owasp-llm-top-10/demo-preflight.py --http
 ```
 
 Do not present HTTP mode as the off/on delta unless the app is explicitly
@@ -197,7 +193,7 @@ absolute reduction: 1.0
 
 ## Rehearsal Log
 
-Last rehearsed: June 3, 2026.
+Last rehearsed: June 8, 2026.
 
 - In-process comparison: passed with defense off `3/3 ASR 1.0`, defense on
   `0/3 ASR 0.0`, absolute reduction `1.0`.
@@ -205,6 +201,7 @@ Last rehearsed: June 3, 2026.
   expected vulnerable synthetic flag response.
 - HTTP baseline harness against Docker Compose target: passed with
   `3/3 ASR 1.0`.
+- Focused LLM01 test suite: passed 28 tests.
 
 ## Recovery Lines
 
