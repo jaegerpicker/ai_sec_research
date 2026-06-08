@@ -3,7 +3,8 @@
 Target: 25 minutes prepared content, 5 minutes for questions, demo recovery, or
 skipped-slide padding. `slides.md` currently contains 23 numbered slides plus
 appendices; slides 1-22 are the prepared talk, and slide 23 is the explicit Q&A
-landing slide.
+landing slide. Use `rehearsal.md` as the source of truth for elapsed-time
+checkpoints and cuts.
 
 ## Timing Plan
 
@@ -171,10 +172,11 @@ then the repo roadmap and LLM01 writeup for the executable local path.
 
 ## Rehearsal Notes
 
-- If slide 6 ends after minute 7, stay on the default no-live-demo path.
-- If slide 16 ends after minute 21, skip slide 20.
-- Only run the live demo from slide 20 if ahead of schedule; otherwise use
-  captured or recorded output if the walkthrough needs supporting evidence.
+- If slide 6 ends after minute 7, use the documented cuts and stay on the
+  default no-live-demo path.
+- The default checkpoint is slide 16 at minute 21, followed by slides 17-19.
+- Only run the live demo if slide 16 ends by minute 16:30 and slide 20 is
+  reached by minute 18. Otherwise use captured output.
 - Keep slide 23 and appendix slides for questions, padding, and recovery.
 - Do not apologize for skipping the live demo; frame it as preserving time for
   the engineering method.

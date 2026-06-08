@@ -56,12 +56,14 @@ Accepted slot: 30 minutes total.
 
 Prepared talk timing:
 
-- 3 minutes: motivation and framing.
-- 6 minutes: OWASP LLM Top 10 as an engineering map.
-- 9 minutes: live or recorded `LLM01` prompt-injection lab demo.
-- 4 minutes: defenses and measurement.
-- 2 minutes: roadmap across the other OWASP modules.
-- 1 minute: design-review checklist and close.
+- 4 minutes: motivation and framing.
+- 3 minutes: OWASP LLM Top 10 as an engineering map.
+- 5 minutes: lab method and components.
+- 9 minutes: `LLM01` prompt-injection walkthrough and measured defense delta.
+- 4 minutes: extension, design-review checklist, roadmap, and close.
+
+Use `rehearsal.md` for slide checkpoints, cuts, and the conditional live-demo
+decision. Slide 20 is not part of the default 25-minute path.
 
 ## Demo Plan
 
