@@ -359,22 +359,24 @@ The demo runbook expands this into a timed live path and fallback path.
 
 | Item | Local module |
 |---|---|
-| LLM01 Prompt Injection | [`llm01-prompt-injection`](../../lab/owasp-llm-top-10/llm01-prompt-injection/README.md) |
-| LLM02 Sensitive Information Disclosure | [`llm02-sensitive-information-disclosure`](../../lab/owasp-llm-top-10/llm02-sensitive-information-disclosure/README.md) |
-| LLM03 Supply Chain | [`llm03-supply-chain`](../../lab/owasp-llm-top-10/llm03-supply-chain/README.md) |
-| LLM04 Data and Model Poisoning | [`llm04-data-model-poisoning`](../../lab/owasp-llm-top-10/llm04-data-model-poisoning/README.md) |
-| LLM05 Improper Output Handling | [`llm05-improper-output-handling`](../../lab/owasp-llm-top-10/llm05-improper-output-handling/README.md) |
-| LLM06 Excessive Agency | [`llm06-excessive-agency`](../../lab/owasp-llm-top-10/llm06-excessive-agency/README.md) |
-| LLM07 System Prompt Leakage | [`llm07-system-prompt-leakage`](../../lab/owasp-llm-top-10/llm07-system-prompt-leakage/README.md) |
-| LLM08 Vector and Embedding Weaknesses | [`llm08-vector-embedding-weaknesses`](../../lab/owasp-llm-top-10/llm08-vector-embedding-weaknesses/README.md) |
-| LLM09 Misinformation | [`llm09-misinformation`](../../lab/owasp-llm-top-10/llm09-misinformation/README.md) |
-| LLM10 Unbounded Consumption | [`llm10-unbounded-consumption`](../../lab/owasp-llm-top-10/llm10-unbounded-consumption/README.md) |
+| LLM01 Prompt Injection | `llm01-prompt-injection` |
+| LLM02 Sensitive Information Disclosure | `llm02-sensitive-information-disclosure` |
+| LLM03 Supply Chain | `llm03-supply-chain` |
+| LLM04 Data and Model Poisoning | `llm04-data-model-poisoning` |
+| LLM05 Improper Output Handling | `llm05-improper-output-handling` |
+| LLM06 Excessive Agency | `llm06-excessive-agency` |
+| LLM07 System Prompt Leakage | `llm07-system-prompt-leakage` |
+| LLM08 Vector and Embedding Weaknesses | `llm08-vector-embedding-weaknesses` |
+| LLM09 Misinformation | `llm09-misinformation` |
+| LLM10 Unbounded Consumption | `llm10-unbounded-consumption` |
+
+Full module links are available on the public talk page and in the repository.
 
 ---
 
 ## Appendix D. Metric Notes
 
-- Attack success rate is `successful attacks / total attempts`.
+- Attack success rate is successful attacks divided by total attempts.
 - Compare defense-off and defense-on runs with the same payload set.
 - Treat the delta as a lab signal, not a universal security claim.
 - Keep result JSON with runner metadata, target type, payload path, and cases.
@@ -383,7 +385,7 @@ The demo runbook expands this into a timed live path and fallback path.
 
 ## Appendix E. References
 
-- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-- [OWASP GenAI Security Project](https://genai.owasp.org/)
-- [Repo lab roadmap](../../lab/owasp-llm-top-10/roadmap.md)
-- [LLM01 writeup](../../lab/writeups/001-injection-via-rag.md)
+- OWASP Top 10 for LLM Applications: owasp.org/www-project-top-10-for-large-language-model-applications
+- OWASP GenAI Security Project: genai.owasp.org
+- Repository lab roadmap: lab/owasp-llm-top-10/roadmap.md
+- LLM01 writeup: lab/writeups/001-injection-via-rag.md

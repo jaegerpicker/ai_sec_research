@@ -26,9 +26,10 @@ Current package artifacts:
 - `slides.md` - repo-native slide source for review and Google Slides mirroring.
 - `speaker-notes.md` - slide-by-slide narration notes and timing.
 - `rehearsal.md` - full-run timing checkpoints, delivery preflight, and run log.
+- `qa.md` - final content, rendering, accessibility, and artifact checks.
 - `demo-runbook.md` - live demo setup, commands, fallback, and recovery path.
 - `assets/` - local diagrams or images used by the deck, plus asset policy.
-- `exports/slides.pdf` - published 28-page PDF export of the delivery deck.
+- `exports/slides.pdf` - published 25-page PDF export of the delivery deck.
 - `exports/` - Google Slides link, captured demo output, and export policy.
 
 ## Viewing Paths
@@ -37,7 +38,8 @@ Current package artifacts:
   `exports/google-slides-link.md`.
 - Published deck: `exports/slides.pdf`.
 - Repo-native slide source: `slides.md`.
-- Public web version: `/talks/summit-owasp-llm-top-10/` after deploy.
+- Accessible public web version: `/talks/summit-owasp-llm-top-10/` after
+  deploy.
 
 ## Scope
 
