@@ -22,10 +22,12 @@ Default path: use the prepared 25-minute talk and captured fallback output in
 
 Live-demo decision point:
 
-- Run the live demo only if slide 20 is reached by minute 18 and there are at
-  least 7 minutes before Q&A.
+- Run the live demo only if slide 16 ends by minute 16:30, slide 20 is reached
+  by minute 18, and there are at least 7 minutes before Q&A.
 - If the live demo runs, cap it at 5 minutes.
 - If the live demo runs long, compress or skip roadmap details before Q&A.
+
+Use `rehearsal.md` for the complete prepared-talk checkpoints and cut order.
 
 Use captured fallback output if:
 

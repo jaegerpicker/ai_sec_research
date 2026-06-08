@@ -25,6 +25,7 @@ Current package artifacts:
 - `outline.md` - planning index for the talk package.
 - `slides.md` - repo-native slide source for review and Google Slides mirroring.
 - `speaker-notes.md` - slide-by-slide narration notes and timing.
+- `rehearsal.md` - full-run timing checkpoints, delivery preflight, and run log.
 - `demo-runbook.md` - live demo setup, commands, fallback, and recovery path.
 - `assets/` - local diagrams or images used by the deck, plus asset policy.
 - `exports/slides.pdf` - published 28-page PDF export of the delivery deck.
