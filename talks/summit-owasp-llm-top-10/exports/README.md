@@ -1,11 +1,10 @@
 # Talk Exports
 
-Store generated or manually exported presentation artifacts here when they are
-ready to publish.
+Published presentation artifacts for the talk live here.
 
-## Expected Exports
+## Published Exports
 
-- `slides.pdf` - public PDF export of the final deck.
+- `slides.pdf` - verified 28-page PDF export of the final Google Slides deck.
 - `google-slides-link.md` - verified link to the live Google Slides delivery
   copy.
 - `llm01-baseline-output.txt` - captured fallback output for the defense-off
