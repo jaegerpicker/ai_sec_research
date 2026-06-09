@@ -38,6 +38,10 @@
       url.searchParams.set('view', mode);
       history.replaceState(history.state, '', url);
     }
+
+    window.dispatchEvent(
+      new CustomEvent('site-view-change', { detail: { mode } }),
+    );
   }
 
   const initialMode = document.documentElement.dataset.view;

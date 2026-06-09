@@ -85,7 +85,8 @@ To maintain it:
 2. Keep the giscus app installed: <https://github.com/apps/giscus>.
 3. Update `data-repo`, `data-repo-id`, or `data-category-id` only if the
    repository or discussion category changes.
-4. Keep `data-theme="dark"` so comments match the dark-only site theme.
+4. Keep the dynamic theme listener so comments follow Ops (`dark`) and Direct
+   (`light`) presentation changes.
 
 ## Planning docs (not published)
 
