@@ -80,6 +80,18 @@ body {
   line-height: 1.65;
 }
 
+.direct-only {
+  display: none !important;
+}
+
+html[data-view='direct'] .ops-only {
+  display: none !important;
+}
+
+html[data-view='direct'] .direct-only {
+  display: revert !important;
+}
+
 html[data-view='direct'] body {
   background:
     linear-gradient(rgba(28, 91, 97, 0.045) 1px, transparent 1px),
