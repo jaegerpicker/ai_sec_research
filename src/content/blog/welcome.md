@@ -16,6 +16,6 @@ Two posts are currently in flight:
 - The Production Agent Attack Surface — what I've learned building agents in production and why it makes me nervous as a security engineer.
 - Supply Chain Attacks on AI Tooling: Lessons from Shai-Hulud — a field report on the npm worm that targeted ~/.claude/, and what I built in response.
 
-More to come. The source for this site lives at github.com/jaegerpicker/ai_sec_research.
+More to come. The source for this site lives at github.com/jaegerpicker/small_screens_big_worlds.
 
 Let's see how deep it goes!

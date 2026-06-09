@@ -6,8 +6,8 @@ export async function GET(context) {
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({
-    title: 'ai-sec-research',
-    description: 'Notes on AI security, red teaming, and agent attack surface.',
+    title: 'Small Screens / Big Worlds',
+    description: 'Mobile engineering, AI-assisted development, game-development, and systems field notes.',
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
