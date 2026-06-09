@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const areas = [
+  {
+    code: '01',
+    opsLabel: 'Native Mobile',
+    directLabel: 'Native Mobile',
+    status: 'Flight proven',
+    summary:
+      'iOS and Android systems built with Swift, Kotlin, Objective-C, Java, and C++, including offline workflows, sensors, connected devices, and mobile-to-cloud integration.',
+    evidence: ['Native architecture', 'Connected products', 'Offline behavior', 'Team leadership'],
+  },
+  {
+    code: '02',
+    opsLabel: 'Product Systems',
+    directLabel: 'React and React Native',
+    status: 'Flight proven',
+    summary:
+      'Cross-platform product engineering across React Native, TypeScript, React, GraphQL, APIs, design systems, and frontend delivery at team scale.',
+    evidence: ['React Native', 'TypeScript', 'GraphQL', 'Design systems'],
+  },
+  {
+    code: '03',
+    opsLabel: 'Interface Deck',
+    directLabel: 'Frontend and Product Systems',
+    status: 'Flight proven',
+    summary:
+      'Web interfaces and distributed product surfaces shaped by usability, performance, accessibility, operational constraints, and maintainable architecture.',
+    evidence: ['Frontend architecture', 'Product delivery', 'Accessibility', 'Distributed systems'],
+  },
+  {
+    code: '04',
+    opsLabel: 'Game Lab',
+    directLabel: 'Game Lab',
+    status: 'Under construction',
+    summary:
+      'A serious learning program in Godot and Unreal focused on gameplay loops, input, state, tools, mobile deployment, and AI-assisted prototyping.',
+    evidence: ['Godot', 'Unreal Engine', 'Gameplay systems', 'Learning in public'],
+  },
+];
+---
+
+<BaseLayout
+  title="Projects — Small Screens / Big Worlds"
+  description="Mobile, React, frontend, and game-development work by Shawn Campbell."
+>
+  <header class="projects-hero">
+    <p class="kicker ops-only">Shipyard / Systems Manifest</p>
+    <p class="kicker direct-only">Projects and Capabilities</p>
+    <h1>
+      <span class="ops-only">Systems under construction</span>
+      <span class="direct-only">Mobile, frontend, and game-development work</span>
+    </h1>
+    <p>
+      This index describes the work I can discuss accurately today. Detailed
+      case studies and playable experiments will replace broad capability
+      summaries as public artifacts are ready.
+    </p>
+  </header>
+
+  <section class="project-list" aria-label="Project areas">
+    {areas.map((area) => (
+      <article class="project-area">
+        <div class="project-area__code">{area.code}</div>
+        <div class="project-area__body">
+          <p class="project-area__status">{area.status}</p>
+          <h2>
+            <span class="ops-only">{area.opsLabel}</span>
+            <span class="direct-only">{area.directLabel}</span>
+          </h2>
+          <p>{area.summary}</p>
+          <ul>
+            {area.evidence.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <aside class="case-study-note">
+    <p class="kicker ops-only">Docking Queue</p>
+    <p class="kicker direct-only">Case Study Standard</p>
+    <h2>Evidence before decoration.</h2>
+    <p>
+      Future entries will include role, constraints, decisions, implementation,
+      outcome, screenshots or playable evidence, and lessons learned. No invented
+      metrics and no inflated claims.
+    </p>
+  </aside>
+</BaseLayout>
+
+<style>
+  .projects-hero {
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .projects-hero h1 {
+    max-width: 58rem;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+  }
+
+  .projects-hero > p:last-child {
+    max-width: 50rem;
+    color: var(--fg-muted);
+    font-size: 1.08rem;
+  }
+
+  .project-list {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-area {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-area:last-child {
+    border-bottom: 0;
+  }
+
+  .project-area__code {
+    padding: 1.5rem;
+    border-right: 1px solid var(--border);
+    color: var(--warning);
+    font: 700 1rem var(--font-mono);
+  }
+
+  .project-area__body {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .project-area__status {
+    color: var(--accent-strong);
+    font: 700 0.72rem var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  .project-area h2 {
+    margin: 0 0 0.75rem;
+  }
+
+  .project-area__body > p:not(.project-area__status) {
+    max-width: 52rem;
+    color: var(--fg-muted);
+  }
+
+  .project-area ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+  }
+
+  .project-area li {
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.55rem;
+    color: var(--fg-muted);
+    font: 700 0.7rem var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  .case-study-note {
+    padding: clamp(2rem, 6vw, 4rem);
+    background: rgba(228, 173, 84, 0.05);
+  }
+
+  .case-study-note h2 {
+    margin-top: 0;
+  }
+
+  .case-study-note > p:last-child {
+    max-width: 48rem;
+    color: var(--fg-muted);
+  }
+
+  :global(html[data-view='direct']) .projects-hero h1 {
+    text-transform: none;
+  }
+
+  :global(html[data-view='direct']) .project-area {
+    grid-template-columns: 1fr;
+  }
+
+  :global(html[data-view='direct']) .project-area__code {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .project-area {
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+    }
+
+    .project-area__code {
+      padding: 1rem;
+    }
+  }
+</style>

@@ -13,15 +13,55 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
 });
+
+const formatLabels = {
+  'system-deep-dive': 'System Deep Dive',
+  'flight-log': 'Flight Log',
+  postmortem: 'Postmortem',
+  'cross-system-test': 'Cross-System Test',
+} as const;
+
+const formats = [
+  {
+    title: 'System Deep Dives',
+    detail: 'Long-form architecture, implementation, and engineering analysis.',
+  },
+  {
+    title: 'Flight Logs',
+    detail: 'Short experiments, progress reports, and practical field notes.',
+  },
+  {
+    title: 'Postmortems',
+    detail: 'Decisions, failures, measurements, and corrections.',
+  },
+  {
+    title: 'Cross-System Tests',
+    detail: 'The same feature or mechanic examined across frameworks and engines.',
+  },
+];
 ---
 
-<BaseLayout title="Blog — ai-sec-research" description="All posts">
-  <section class="blog-index panel">
-    <p class="kicker">Signal Archive</p>
-    <h1>Blog</h1>
+<BaseLayout title="Writing — Small Screens / Big Worlds" description="Mobile, AI-assisted development, game-development, and systems field notes.">
+  <section class="blog-index">
+    <p class="kicker ops-only">Flight Log / Signal Archive</p>
+    <p class="kicker direct-only">Writing</p>
+    <h1>
+      <span class="ops-only">Dispatches from the build</span>
+      <span class="direct-only">Technical articles and field notes</span>
+    </h1>
     <p class="muted">
-      Field notes, lab writeups, and practical analysis from AI security work.
+      Mobile and product engineering lead the archive. AI-assisted development,
+      game-development study, and systems-under-stress research round it out.
     </p>
+  </section>
+
+  <section class="format-grid" aria-label="Article formats">
+    {formats.map((format) => (
+      <article>
+        <h2>{format.title}</h2>
+        <p>{format.detail}</p>
+      </article>
+    ))}
   </section>
 
   {posts.length === 0 ? (
@@ -31,7 +71,11 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
       {posts.map((post) => (
         <a class="signal-card" href={`${base}/blog/${post.id}`}>
           <span class="signal-card__label">
-            {post.data.draft ? 'Draft' : 'Post'}
+            {post.data.draft
+              ? 'Draft'
+              : post.data.format
+                ? formatLabels[post.data.format]
+                : 'Field Note'}
           </span>
           <span class="signal-card__title">{post.data.title}</span>
           <time class="signal-card__meta" datetime={post.data.pubDate.toISOString()}>
@@ -46,8 +90,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 
 <style>
   .blog-index {
-    margin-bottom: 1rem;
-    padding: clamp(1.25rem, 3vw, 2rem);
+    padding: clamp(2rem, 6vw, 4rem);
+    border-bottom: 1px solid var(--border);
   }
 
   .blog-index h1 {
@@ -62,5 +106,53 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   .post-list {
     display: grid;
     gap: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-bottom: 1px solid var(--border);
+  }
+
+  .format-grid article {
+    padding: 1.25rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .format-grid article:last-child {
+    border-right: 0;
+  }
+
+  .format-grid h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+
+  .format-grid p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.84rem;
+  }
+
+  @media (max-width: 760px) {
+    .format-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .format-grid article:nth-child(2) {
+      border-right: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .format-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .format-grid article {
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
   }
 </style>
