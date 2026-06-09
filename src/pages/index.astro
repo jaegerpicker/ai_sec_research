@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MissionCard from '../components/MissionCard.astro';
+import OrbitMap from '../components/OrbitMap.astro';
+import { missions } from '../data/site-content';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -8,24 +11,80 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 5);
 ---
 
-<BaseLayout title="ai-sec-research">
-  <section class="home-hero panel">
-    <p class="kicker">AI Security Research / Field Notes</p>
-    <h1>ai-sec-research</h1>
-    <p class="mission-copy">
-      Notes on AI security, red teaming, and the attack surface of agentic systems.
-      Maintained by Shawn Campbell. Written to think clearly about what breaks,
-      what defends, and what evidence survives contact with real systems.
+<BaseLayout
+  title="Small Screens / Big Worlds — Shawn Campbell"
+  description="Native mobile systems, React products, AI-assisted development, and a growing body of work in games."
+>
+  <section class="home-hero">
+    <div class="hero-copy">
+      <p class="kicker ops-only">Build status / curious and operational</p>
+      <p class="kicker direct-only">Mobile and Product Engineering</p>
+      <h1>Software for <span>small screens</span> and big worlds.</h1>
+      <p class="mission-copy">
+        I build native mobile systems, React products, and increasingly, games.
+        AI is part of the toolkit: useful for accelerating experiments, never a
+        substitute for engineering judgment.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-action" href="#selected-work">
+          <span class="ops-only">Enter the shipyard</span>
+          <span class="direct-only">View selected work</span>
+        </a>
+        <a href={`${base}/blog`}>
+          <span class="ops-only">Open the flight log</span>
+          <span class="direct-only">Read the blog</span>
+        </a>
+      </div>
+    </div>
+    <OrbitMap />
+  </section>
+
+  <section class="mission-board" id="selected-work" aria-labelledby="work-heading">
+    <header>
+      <p class="kicker ops-only">Active Mission Board</p>
+      <p class="kicker direct-only">Selected Work</p>
+      <h2 id="work-heading">
+        <span class="ops-only">Systems worth opening up</span>
+        <span class="direct-only">Mobile, product, and game-development work</span>
+      </h2>
+      <p>
+        Real engineering decisions, constraints, implementation details, and
+        lessons learned.
+      </p>
+    </header>
+    <div class="mission-grid">
+      {missions.map((mission) => <MissionCard {...mission} />)}
+    </div>
+  </section>
+
+  <section class="current-course" id="game-lab" aria-labelledby="course-heading">
+    <div>
+      <p class="kicker ops-only">Current Trajectory</p>
+      <p class="kicker direct-only">Current Focus</p>
+      <h2 id="course-heading">Learning game development in public</h2>
+    </div>
+    <p>
+      I am bringing decades of mobile, frontend, architecture, and team
+      leadership experience into Godot and Unreal. The goal is playable work,
+      clear postmortems, and an honest record of what transfers and what does not.
     </p>
-    <p class="hero-link">
-      <a href={`${base}/blog`}>Read the blog</a>
+  </section>
+
+  <section class="systems-rigor" id="systems-rigor">
+    <p class="kicker ops-only">Hull Integrity</p>
+    <p class="kicker direct-only">Engineering Discipline</p>
+    <h2>Security remains part of product quality.</h2>
+    <p>
+      Threat modeling, permissions, storage, trust boundaries, and failure modes
+      stay inside the engineering story rather than becoming a separate identity.
     </p>
   </section>
 
   {posts.length > 0 && (
     <section class="latest-section" aria-labelledby="latest-heading">
-      <p class="kicker">Latest Signals</p>
-      <h2 id="latest-heading">Recent Notes</h2>
+      <p class="kicker ops-only">Latest Transmissions</p>
+      <p class="kicker direct-only">Latest Writing</p>
+      <h2 id="latest-heading">Dispatches from the build</h2>
       <div class="post-grid">
         {posts.map((post) => (
           <a class="signal-card" href={`${base}/blog/${post.id}`}>
@@ -41,25 +100,110 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <style>
   .home-hero {
-    padding: clamp(1.25rem, 4vw, 2.5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(24rem, 0.9fr);
+    min-height: min(39rem, calc(100vh - 8rem));
+    border-bottom: 1px solid var(--border);
+    background:
+      linear-gradient(rgba(94, 218, 231, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(94, 218, 231, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .hero-copy {
+    align-self: center;
+    padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 5vw, 4.5rem);
   }
 
   .home-hero h1 {
     margin: 0;
+    max-width: 52rem;
+    font-size: clamp(3.2rem, 6vw, 5.65rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  .home-hero h1 span {
+    color: var(--warning-strong);
   }
 
   .mission-copy {
-    max-width: 48rem;
+    max-width: 44rem;
     color: var(--fg-muted);
     font-size: clamp(1.05rem, 2vw, 1.25rem);
   }
 
-  .hero-link {
-    margin-bottom: 0;
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-actions a {
+    border: 1px solid var(--border-strong);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.7rem 0.85rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .hero-actions .primary-action {
+    border-color: var(--warning);
+    background: var(--warning);
+    color: var(--control-active-fg);
+  }
+
+  .mission-board {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.8fr) minmax(0, 2.2fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mission-board > header {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-right: 1px solid var(--border);
+  }
+
+  .mission-board h2,
+  .current-course h2,
+  .systems-rigor h2 {
+    margin-top: 0;
+  }
+
+  .mission-board header > p:last-child,
+  .current-course > p,
+  .systems-rigor > p:last-child {
+    color: var(--fg-muted);
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .current-course,
+  .systems-rigor {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.85fr) minmax(0, 1.5fr);
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(2rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .current-course {
+    background: rgba(169, 212, 110, 0.045);
+  }
+
+  .systems-rigor {
+    background: rgba(238, 119, 99, 0.04);
   }
 
   .latest-section {
-    margin-top: 1.25rem;
+    padding-top: 2rem;
   }
 
   .post-grid {
@@ -69,8 +213,70 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   }
 
   @media (max-width: 760px) {
+    .home-hero,
+    .mission-board,
+    .current-course,
+    .systems-rigor {
+      grid-template-columns: 1fr;
+    }
+
+    .home-hero {
+      min-height: auto;
+    }
+
+    .hero-copy {
+      padding: 2.75rem 1.25rem 1.5rem;
+    }
+
+    .home-hero h1 {
+      font-size: clamp(2.85rem, 15vw, 4.5rem);
+    }
+
+    .mission-board > header {
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mission-grid {
+      grid-template-columns: 1fr;
+    }
+
     .post-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  :global(html[data-view='direct']) .home-hero {
+    min-height: auto;
+    background: transparent;
+    grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.8fr);
+  }
+
+  :global(html[data-view='direct']) .home-hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    text-transform: none;
+  }
+
+  :global(html[data-view='direct']) .mission-board {
+    grid-template-columns: 1fr;
+  }
+
+  :global(html[data-view='direct']) .mission-board > header {
+    border-right: 0;
+  }
+
+  :global(html[data-view='direct']) .mission-grid {
+    gap: 0.75rem;
+    padding: 0 2rem 2rem;
+  }
+
+  @media (max-width: 760px) {
+    :global(html[data-view='direct']) .home-hero {
+      grid-template-columns: 1fr;
+    }
+
+    :global(html[data-view='direct']) .mission-grid {
+      padding: 0 1rem 1rem;
     }
   }
 </style>

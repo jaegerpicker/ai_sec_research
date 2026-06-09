@@ -1,0 +1,206 @@
+---
+import { systems } from '../data/site-content';
+---
+
+<nav class="orbit-map" aria-label="Engineering focus areas">
+  <div class="orbit-map__visual" aria-hidden="true">
+    <span class="orbit orbit--outer"></span>
+    <span class="orbit orbit--middle"></span>
+    <span class="orbit orbit--inner"></span>
+    <span class="orbit-map__axis orbit-map__axis--x"></span>
+    <span class="orbit-map__axis orbit-map__axis--y"></span>
+    <span class="orbit-map__core"></span>
+  </div>
+
+  <ul>
+    {systems.map((system, index) => (
+      <li class={`orbit-node orbit-node--${index + 1}`}>
+        <a href={system.href}>
+          <span class="ops-only">{system.opsLabel}</span>
+          <span class="direct-only">{system.directLabel}</span>
+          <small>{system.status}</small>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .orbit-map {
+    min-height: 31rem;
+    position: relative;
+  }
+
+  .orbit-map__visual {
+    position: absolute;
+    inset: 0;
+  }
+
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit--outer {
+    width: min(28rem, 86%);
+    aspect-ratio: 1;
+  }
+
+  .orbit--middle {
+    width: min(19rem, 60%);
+    aspect-ratio: 1;
+    border-color: rgba(228, 173, 84, 0.28);
+  }
+
+  .orbit--inner {
+    width: 7rem;
+    aspect-ratio: 1;
+    border-color: var(--warning);
+  }
+
+  .orbit-map__axis {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(228, 173, 84, 0.62);
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-map__axis--x {
+    width: 10rem;
+    height: 1px;
+  }
+
+  .orbit-map__axis--y {
+    width: 1px;
+    height: 10rem;
+  }
+
+  .orbit-map__core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--warning-strong);
+    box-shadow: 0 0 1.75rem rgba(228, 173, 84, 0.8);
+    transform: translate(-50%, -50%);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .orbit-node {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .orbit-node--1 {
+    top: 10%;
+    right: 3%;
+  }
+
+  .orbit-node--2 {
+    top: 39%;
+    left: 2%;
+  }
+
+  .orbit-node--3 {
+    right: 5%;
+    bottom: 10%;
+  }
+
+  .orbit-node--4 {
+    left: 8%;
+    bottom: 8%;
+  }
+
+  a {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 10.5rem;
+    border: 1px solid var(--border);
+    background: rgba(5, 10, 17, 0.9);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.65rem 0.75rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  a:hover,
+  a:focus-visible {
+    border-color: var(--border-strong);
+    color: var(--warning-strong);
+    text-decoration: none;
+  }
+
+  small {
+    color: var(--fg-muted);
+    font-size: 0.61rem;
+  }
+
+  :global(html[data-view='direct']) .orbit-map {
+    min-height: 0;
+  }
+
+  :global(html[data-view='direct']) .orbit-map__visual {
+    display: none;
+  }
+
+  :global(html[data-view='direct']) ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  :global(html[data-view='direct']) .orbit-node {
+    position: static;
+  }
+
+  :global(html[data-view='direct']) a {
+    min-height: 100%;
+    background: var(--bg-panel);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    text-transform: none;
+  }
+
+  @media (max-width: 760px) {
+    .orbit-map,
+    :global(html[data-view='ops']) .orbit-map {
+      min-height: 0;
+    }
+
+    .orbit-map__visual {
+      display: none;
+    }
+
+    ul,
+    :global(html[data-view='direct']) ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .orbit-node {
+      position: static;
+    }
+
+    a {
+      min-width: 0;
+      background: var(--bg-panel);
+    }
+  }
+</style>
