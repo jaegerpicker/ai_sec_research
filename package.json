@@ -11,6 +11,7 @@
     "astro": "astro",
     "test:view": "node --disable-warning=ExperimentalWarning --experimental-strip-types scripts/test-view-mode.mjs",
     "test:shell": "node scripts/test-publication-shell.mjs",
+    "test:editorial": "node scripts/test-projects-editorial.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {

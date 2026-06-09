@@ -10,6 +10,12 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    format: z.enum([
+      'system-deep-dive',
+      'flight-log',
+      'postmortem',
+      'cross-system-test',
+    ]).optional(),
   }),
 });
 

@@ -9,9 +9,16 @@ interface Props {
   updatedDate?: Date;
   tags?: string[];
   draft?: boolean;
+  format?: 'system-deep-dive' | 'flight-log' | 'postmortem' | 'cross-system-test';
 }
 
-const { title, description, pubDate, updatedDate, tags = [], draft = false } = Astro.props;
+const { title, description, pubDate, updatedDate, tags = [], draft = false, format } = Astro.props;
+const formatLabels = {
+  'system-deep-dive': 'System Deep Dive',
+  'flight-log': 'Flight Log',
+  postmortem: 'Postmortem',
+  'cross-system-test': 'Cross-System Test',
+};
 
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -24,7 +31,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   <article class="post-shell">
     <header class="post-header panel">
       {draft && <p class="draft-banner">Draft - not yet published</p>}
-      <p class="kicker">Field Note</p>
+      <p class="kicker">{format ? formatLabels[format] : 'Field Note'}</p>
       <h1>{title}</h1>
       <p class="description">{description}</p>
       <p class="meta">
