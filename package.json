@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test:view": "node --disable-warning=ExperimentalWarning --experimental-strip-types scripts/test-view-mode.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {

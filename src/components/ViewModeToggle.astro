@@ -1,0 +1,83 @@
+<div class="view-mode" role="group" aria-label="Site presentation">
+  <button type="button" data-view-choice="ops" aria-pressed="true">
+    Ops
+  </button>
+  <button type="button" data-view-choice="direct" aria-pressed="false">
+    Direct
+  </button>
+</div>
+
+<script>
+  const storageKey = 'site-view';
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-view-choice]'),
+  );
+
+  function isViewMode(value: string | undefined): value is 'ops' | 'direct' {
+    return value === 'ops' || value === 'direct';
+  }
+
+  function applyViewMode(mode: 'ops' | 'direct', updateUrl: boolean) {
+    document.documentElement.dataset.view = mode;
+
+    for (const button of buttons) {
+      button.setAttribute(
+        'aria-pressed',
+        String(button.dataset.viewChoice === mode),
+      );
+    }
+
+    try {
+      localStorage.setItem(storageKey, mode);
+    } catch {
+      // Storage can be unavailable in privacy-focused browser contexts.
+    }
+
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('view', mode);
+      history.replaceState(history.state, '', url);
+    }
+  }
+
+  const initialMode = document.documentElement.dataset.view;
+  applyViewMode(isViewMode(initialMode) ? initialMode : 'ops', false);
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const mode = button.dataset.viewChoice;
+      if (isViewMode(mode)) {
+        applyViewMode(mode, true);
+      }
+    });
+  }
+</script>
+
+<style>
+  .view-mode {
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid var(--border);
+    padding: 0.2rem;
+  }
+
+  button {
+    min-width: 4.25rem;
+    border: 0;
+    background: transparent;
+    color: var(--fg-muted);
+    cursor: pointer;
+    font: 700 0.72rem/1 var(--font-mono);
+    padding: 0.55rem 0.65rem;
+    text-transform: uppercase;
+  }
+
+  button[aria-pressed='true'] {
+    background: var(--accent);
+    color: var(--control-active-fg);
+  }
+
+  button:hover {
+    color: var(--fg);
+  }
+</style>
