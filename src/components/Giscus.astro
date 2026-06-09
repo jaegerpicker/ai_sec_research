@@ -11,20 +11,60 @@ const commentsEnabled = true;
 ---
 
 {commentsEnabled && (
-  <script src="https://giscus.app/client.js"
-        data-repo="jaegerpicker/small_screens_big_worlds"
-        data-repo-id="R_kgDOScw3Gg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOScw3Gs4C9-dD"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="1"
-        data-input-position="top"
-        data-theme="dark"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+  <div class="giscus-shell" data-giscus-shell></div>
 )}
+
+{commentsEnabled && (
+  <script is:inline>
+    (() => {
+      const shell = document.querySelector('[data-giscus-shell]');
+      if (!shell) return;
+
+      const themeFor = (mode) => mode === 'direct' ? 'light' : 'dark';
+      const currentTheme = () =>
+        themeFor(document.documentElement.dataset.view);
+
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.setAttribute('data-repo', 'jaegerpicker/small_screens_big_worlds');
+      script.setAttribute('data-repo-id', 'R_kgDOScw3Gg');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOScw3Gs4C9-dD');
+      script.setAttribute('data-mapping', 'pathname');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '1');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', currentTheme());
+      script.setAttribute('data-lang', 'en');
+      script.setAttribute('data-loading', 'lazy');
+      shell.append(script);
+
+      window.addEventListener('site-view-change', (event) => {
+        const mode = event instanceof CustomEvent ? event.detail?.mode : null;
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe?.contentWindow) return;
+
+        iframe.contentWindow.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                theme: themeFor(mode),
+              },
+            },
+          },
+          'https://giscus.app',
+        );
+      });
+    })();
+  </script>
+)}
+
+<style>
+  .giscus-shell {
+    width: min(100%, var(--article-width));
+    margin: 1.5rem auto 0;
+  }
+</style>

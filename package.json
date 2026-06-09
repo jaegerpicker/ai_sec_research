@@ -13,6 +13,7 @@
     "test:shell": "node scripts/test-publication-shell.mjs",
     "test:editorial": "node scripts/test-projects-editorial.mjs",
     "test:profile": "node scripts/test-profile-repositioning.mjs",
+    "test:a11y": "node scripts/test-accessibility-contract.mjs",
     "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {
