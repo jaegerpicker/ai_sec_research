@@ -5,34 +5,34 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const capabilities = [
   {
-    label: 'AI Threat Research',
+    label: 'Native Mobile Engineering',
     details:
-      'Agentic attack surface mapping, prompt-injection labs, tool-use risk analysis, and secure AI workflow review.',
+      'Swift, Kotlin, Objective-C, Java, C++, connected devices, offline workflows, and mobile-to-cloud architecture.',
   },
   {
-    label: 'Security Architecture',
+    label: 'React and React Native',
     details:
-      'Application security assessments, secure API design, threat modeling, GraphQL review, and cloud-native guardrails.',
+      'Cross-platform products, TypeScript, React, GraphQL, design systems, performance, and frontend delivery at team scale.',
   },
   {
-    label: 'Red-Team Methodology',
+    label: 'Frontend and Product Systems',
     details:
-      'Internal red-team exercises, proof-of-concept exploit development, secure code review, and attacker-informed remediation.',
-  },
-  {
-    label: 'Distributed Platforms',
-    details:
-      'IoT, smart-access, mobile, data pipeline, serverless, and event-driven systems across AWS and GCP environments.',
-  },
-  {
-    label: 'Systems Engineering',
-    details:
-      'Swift, Kotlin, C++, TypeScript, Go, Python, C#, Java, GraphQL, React, and mobile-to-cloud integration.',
+      'Accessible product interfaces, API integration, distributed workflows, and architecture shaped by operational constraints.',
   },
   {
     label: 'Engineering Leadership',
     details:
-      'Principal-level technical direction, team formation, standards, mentoring, cross-functional execution, and delivery discipline.',
+      'Principal-level technical direction, team formation, hiring, standards, mentoring, and cross-functional execution.',
+  },
+  {
+    label: 'Connected and Distributed Systems',
+    details:
+      'IoT, smart access, data pipelines, serverless platforms, event-driven systems, AWS, GCP, and backend services.',
+  },
+  {
+    label: 'Security and Systems Rigor',
+    details:
+      'Threat modeling, application security, red-team methodology, secure code review, trust boundaries, and resilient delivery.',
   },
 ];
 
@@ -156,55 +156,58 @@ const signals = [
 
 <BaseLayout
   title="Resume — Shawn Campbell"
-  description="Mission dossier for Shawn Campbell: AI security, secure systems architecture, red-team methodology, and engineering leadership."
+  description="Shawn Campbell: mobile and product engineer, frontend architect, React Native leader, and hands-on engineering leader."
 >
   <article class="resume-dossier">
     <section class="hero-panel">
       <div>
-        <p class="kicker">Mission Profile</p>
+        <p class="kicker ops-only">Crew File / Mission Profile</p>
+        <p class="kicker direct-only">Professional Profile</p>
         <h1>Shawn Campbell</h1>
         <p class="role-line">
-          AI security researcher, secure systems architect, red-team practitioner,
-          and hands-on engineering leader.
+          Mobile and Product Engineer, frontend architect, and hands-on
+          engineering leader.
         </p>
         <p class="mission-copy">
-          Shawn Campbell builds and reviews systems where software, agents,
-          devices, data, and teams intersect. His work centers on secure
-          foundations: AI threat research, application security, distributed
-          platforms, mobile and IoT depth, and leadership that turns risk into
-          clear engineering practice.
+          Shawn Campbell has spent 25 years building software, products, and
+          engineering teams. His strongest depth is in native mobile, React and
+          React Native, connected products, frontend systems, and technical
+          leadership. Security remains part of the engineering discipline, while
+          game development in Godot and Unreal is a current learning focus.
         </p>
         <ul class="badge-row" aria-label="Mission badges">
-          <li>AI Security</li>
-          <li>Red Team</li>
-          <li>Secure Systems</li>
+          <li>Native Mobile</li>
+          <li>React Native</li>
+          <li>Frontend Systems</li>
           <li>Engineering Leadership</li>
-          <li>Distributed Platforms</li>
+          <li>Connected Products</li>
         </ul>
       </div>
 
       <aside class="contact-panel" aria-label="Profile telemetry">
-        <p class="panel-label">Telemetry</p>
+        <p class="panel-label ops-only">Telemetry</p>
+        <p class="panel-label direct-only">Summary</p>
         <dl>
           <div>
             <dt>Operating Mode</dt>
-            <dd>Principal IC / technical lead / security partner</dd>
+            <dd>Principal IC / technical lead / engineering leader</dd>
           </div>
           <div>
             <dt>Primary Focus</dt>
-            <dd>Agentic AI security, appsec, mobile, IoT, cloud platforms</dd>
+            <dd>Native mobile, React Native, frontend, connected products</dd>
           </div>
           <div>
-            <dt>Signal</dt>
-            <dd>25 years building systems, teams, and security practices</dd>
+            <dt>Current learning focus</dt>
+            <dd>Game Development with Godot and Unreal Engine</dd>
           </div>
         </dl>
       </aside>
     </section>
 
     <section class="dossier-section" aria-labelledby="capabilities-heading">
-      <p class="kicker">Capabilities Matrix</p>
-      <h2 id="capabilities-heading">Security-First Engineering Surface</h2>
+      <p class="kicker ops-only">Capabilities Matrix</p>
+      <p class="kicker direct-only">Core Capabilities</p>
+      <h2 id="capabilities-heading">Mobile, Product, and Engineering Leadership</h2>
       <div class="capability-grid">
         {capabilities.map((capability) => (
           <article class="capability-card">
@@ -216,8 +219,12 @@ const signals = [
     </section>
 
     <section class="dossier-section" aria-labelledby="record-heading">
-      <p class="kicker">Operational Record</p>
-      <h2 id="record-heading">Recent Assignments</h2>
+      <p class="kicker ops-only">Operational Record</p>
+      <p class="kicker direct-only">Experience</p>
+      <h2 id="record-heading">
+        <span class="ops-only">Recent Assignments</span>
+        <span class="direct-only">Professional Experience</span>
+      </h2>
       <div class="timeline">
         {roles.map((role) => (
           <article class="role-card">
@@ -237,7 +244,8 @@ const signals = [
     </section>
 
     <section class="dossier-section" aria-labelledby="early-heading">
-      <p class="kicker">Early Systems Work</p>
+      <p class="kicker ops-only">Early Systems Work</p>
+      <p class="kicker direct-only">Earlier Experience</p>
       <h2 id="early-heading">Foundation Layer</h2>
       <ol class="early-list">
         {earlySystems.map((item) => <li>{item}</li>)}
@@ -245,8 +253,9 @@ const signals = [
     </section>
 
     <section class="dossier-section" aria-labelledby="signals-heading">
-      <p class="kicker">Selected Signals</p>
-      <h2 id="signals-heading">Research, Writing, and Public Artifacts</h2>
+      <p class="kicker ops-only">Selected Signals</p>
+      <p class="kicker direct-only">Selected Writing</p>
+      <h2 id="signals-heading">Writing, Research, and Public Artifacts</h2>
       <div class="signals-grid">
         {signals.map((signal) => (
           <a class="signal-card" href={signal.href}>
@@ -259,7 +268,8 @@ const signals = [
     </section>
 
     <section class="dossier-section contact-panel" aria-labelledby="links-heading">
-      <p class="kicker">Professional Links</p>
+      <p class="kicker ops-only">Professional Channels</p>
+      <p class="kicker direct-only">Links</p>
       <h2 id="links-heading">Public Channels</h2>
       <nav class="contact-links" aria-label="Professional links">
         <a href="https://www.linkedin.com/in/shawnmcampbell">LinkedIn</a>
@@ -569,6 +579,109 @@ const signals = [
     .capability-grid,
     .signals-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  :global(html[data-view='direct']) .resume-dossier {
+    gap: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  :global(html[data-view='direct']) .hero-panel,
+  :global(html[data-view='direct']) .dossier-section,
+  :global(html[data-view='direct']) .contact-panel,
+  :global(html[data-view='direct']) .capability-card,
+  :global(html[data-view='direct']) .role-card,
+  :global(html[data-view='direct']) .signal-card {
+    background: #fff;
+    box-shadow: none;
+  }
+
+  :global(html[data-view='direct']) .hero-panel::after {
+    display: none;
+  }
+
+  :global(html[data-view='direct']) .hero-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.32fr);
+  }
+
+  :global(html[data-view='direct']) h1 {
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+  }
+
+  :global(html[data-view='direct']) .role-line {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  @media (max-width: 1100px) {
+    :global(html[data-view='direct']) .hero-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media print {
+    :global(header),
+    :global(footer),
+    .signals-grid,
+    .contact-links {
+      display: none !important;
+    }
+
+    :global(html),
+    :global(body) {
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    :global(main) {
+      width: 100%;
+      padding: 0;
+    }
+
+    .resume-dossier {
+      display: block;
+      padding: 0;
+    }
+
+    .hero-panel,
+    .dossier-section,
+    .contact-panel,
+    .capability-card,
+    .role-card {
+      break-inside: avoid;
+      border-color: #bbb;
+      background: #fff !important;
+      box-shadow: none;
+    }
+
+    .hero-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-panel::after,
+    .ops-only {
+      display: none !important;
+    }
+
+    .direct-only {
+      display: revert !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    .role-line,
+    .contact-panel dt,
+    .contact-panel dd {
+      color: #111 !important;
+    }
+
+    p,
+    li,
+    .role-header span {
+      color: #333 !important;
     }
   }
 </style>
