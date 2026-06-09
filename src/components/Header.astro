@@ -1,4 +1,6 @@
 ---
+import ViewModeToggle from './ViewModeToggle.astro';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = [
   { href: `${base}/`, label: 'Home' },
@@ -11,16 +13,19 @@ const links = [
 <header>
   <nav>
     <a href={`${base}/`} class="brand">ai-sec-research</a>
-    <ul>
-      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-    </ul>
+    <div class="nav-actions">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <ViewModeToggle />
+    </div>
   </nav>
 </header>
 
 <style>
   header {
     border-bottom: 1px solid var(--border);
-    background: rgba(5, 10, 17, 0.72);
+    background: var(--header-bg);
     backdrop-filter: blur(14px);
   }
 
@@ -50,6 +55,13 @@ const links = [
     gap: 0.35rem 0.9rem;
   }
 
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
   a {
     color: var(--link);
     text-decoration: none;
@@ -68,8 +80,21 @@ const links = [
       flex-direction: column;
     }
 
+    .nav-actions {
+      width: 100%;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
     ul {
       justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-actions {
+      flex-direction: column;
     }
   }
 </style>

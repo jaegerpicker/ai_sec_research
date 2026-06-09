@@ -13,11 +13,41 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-view="ops">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      (() => {
+        const storageKey = 'site-view';
+        const queryMode = new URLSearchParams(window.location.search).get('view');
+        const isMode = (value) => value === 'ops' || value === 'direct';
+        let storedMode = null;
+
+        try {
+          storedMode = localStorage.getItem(storageKey);
+        } catch {
+          // Storage can be unavailable in privacy-focused browser contexts.
+        }
+
+        const mode = isMode(queryMode)
+          ? queryMode
+          : isMode(storedMode)
+            ? storedMode
+            : 'ops';
+
+        document.documentElement.dataset.view = mode;
+
+        if (isMode(queryMode)) {
+          try {
+            localStorage.setItem(storageKey, mode);
+          } catch {
+            // The selected mode still applies for the current page.
+          }
+        }
+      })();
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
