@@ -10,7 +10,7 @@ const [header, homepage, orbitMap, content] = await Promise.all([
 
 assert.match(header, /Small Screens/);
 assert.match(header, /Shawn Campbell/);
-assert.match(homepage, /Software for/);
+assert.match(homepage, /Security for/);
 assert.match(homepage, /small screens/);
 assert.match(homepage, /big worlds/);
 assert.match(homepage, /OrbitMap/);
@@ -20,5 +20,6 @@ assert.match(orbitMap, /href=/);
 assert.match(content, /Flight proven/);
 assert.match(content, /Under construction/);
 assert.match(content, /Security and Architecture/);
+assert.match(content, /AI Security Research/);
 
 console.log('publication shell tests passed');

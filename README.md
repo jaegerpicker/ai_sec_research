@@ -1,8 +1,8 @@
 # Small Screens / Big Worlds
 
-Shawn Campbell's publication and portfolio for mobile engineering, React and
-React Native, frontend systems, AI-assisted development, game-development field
-notes, and security-conscious architecture. Built with [Astro](https://astro.build)
+Shawn Campbell's publication and portfolio for AI security research,
+application security, secure mobile engineering, React and React Native product
+systems, and AI-assisted development. Built with [Astro](https://astro.build)
 and deployed to GitHub Pages.
 
 Live site: <https://sandkcampbell.com/>
@@ -44,17 +44,17 @@ Existing posts without `format` remain valid and render as general field notes.
 
 ## Editorial direction
 
-- 50% mobile and product engineering
-- 20% AI-assisted development
-- 20% game-development field logs
-- 10% security and systems rigor
+- 50% AI security and application security
+- 25% secure mobile and product engineering
+- 15% AI-assisted development methodology
+- 10% game-development field logs and other learning notes
 
 Recommended first sequence:
 
-1. Building the Same Feature in SwiftUI, Jetpack Compose, and React Native
-2. What AI Coding Agents Get Wrong About Mobile Apps
-3. Learning Godot as a Mobile Systems Engineer
-4. Offline-First Sync Without Lying to the User
+1. What I Learned Building Production Agents
+2. Breaking Agents: LLM01 Prompt Injection
+3. Shai-Hulud and AI Tooling Security
+4. Secure Mobile Product Patterns Worth Keeping
 
 ## Presentation package
 

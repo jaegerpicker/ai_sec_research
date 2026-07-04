@@ -4,58 +4,59 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const areas = [
   {
     code: '01',
-    opsLabel: 'Native Mobile',
-    directLabel: 'Native Mobile',
+    opsLabel: 'AI Security Lab',
+    directLabel: 'AI Security Research',
     status: 'Flight proven',
     summary:
-      'iOS and Android systems built with Swift, Kotlin, Objective-C, Java, and C++, including offline workflows, sensors, connected devices, and mobile-to-cloud integration.',
-    evidence: ['Native architecture', 'Connected products', 'Offline behavior', 'Team leadership'],
+      'Executable OWASP LLM Top 10 labs, vulnerable agents, prompt-injection cases, attacker harnesses, and defense experiments for agentic systems.',
+    evidence: ['OWASP LLM Top 10', 'Prompt injection', 'Agent tooling', 'Security writeups'],
   },
   {
     code: '02',
-    opsLabel: 'Product Systems',
-    directLabel: 'React and React Native',
+    opsLabel: 'Application Security',
+    directLabel: 'Application Security',
     status: 'Flight proven',
     summary:
-      'Cross-platform product engineering across React Native, TypeScript, React, GraphQL, APIs, design systems, and frontend delivery at team scale.',
-    evidence: ['React Native', 'TypeScript', 'GraphQL', 'Design systems'],
+      'Threat modeling, secure code review, trust-boundary analysis, and remediation planning across mobile, frontend, backend, and cloud-connected products.',
+    evidence: ['Threat modeling', 'Secure code review', 'Trust boundaries', 'Remediation'],
   },
   {
     code: '03',
-    opsLabel: 'Interface Deck',
+    opsLabel: 'Secure Product Systems',
     directLabel: 'Frontend and Product Systems',
     status: 'Flight proven',
     summary:
-      'Web interfaces and distributed product surfaces shaped by usability, performance, accessibility, operational constraints, and maintainable architecture.',
-    evidence: ['Frontend architecture', 'Product delivery', 'Accessibility', 'Distributed systems'],
+      'React, React Native, TypeScript, GraphQL, APIs, and delivery systems designed with auth flows, data exposure, resilience, and maintainability in view.',
+    evidence: ['React and React Native', 'GraphQL', 'Auth flows', 'Distributed systems'],
   },
   {
     code: '04',
-    opsLabel: 'Game Lab',
-    directLabel: 'Game Lab',
+    opsLabel: 'Secure Mobile',
+    directLabel: 'Native Mobile',
     status: 'Under construction',
     summary:
-      'A serious learning program in Godot and Unreal focused on gameplay loops, input, state, tools, mobile deployment, and AI-assisted prototyping.',
-    evidence: ['Godot', 'Unreal Engine', 'Gameplay systems', 'Learning in public'],
+      'iOS and Android systems built with Swift, Kotlin, Objective-C, Java, and C++, with attention to storage, permissions, offline workflows, sensors, and connected-device trust boundaries.',
+    evidence: ['Native Mobile', 'Permissions', 'Offline behavior', 'Connected products'],
   },
 ];
 ---
 
 <BaseLayout
-  title="Projects — Small Screens / Big Worlds"
-  description="Mobile, React, frontend, and game-development work by Shawn Campbell."
+  title="Security Projects — Small Screens / Big Worlds"
+  description="AI security research, application security, secure product systems, and mobile security work by Shawn Campbell."
 >
   <header class="projects-hero">
-    <p class="kicker ops-only">Shipyard / Systems Manifest</p>
-    <p class="kicker direct-only">Projects and Capabilities</p>
+    <p class="kicker ops-only">Shipyard / Security Manifest</p>
+    <p class="kicker direct-only">Security Projects and Capabilities</p>
     <h1>
-      <span class="ops-only">Systems under construction</span>
-      <span class="direct-only">Mobile, frontend, and game-development work</span>
+      <span class="ops-only">Security work in progress</span>
+      <span class="direct-only">AI security and AppSec work</span>
     </h1>
     <p>
-      This index describes the work I can discuss accurately today. Detailed
-      case studies and playable experiments will replace broad capability
-      summaries as public artifacts are ready.
+      This index keeps the current Small Screens / Big Worlds structure while
+      putting security back at the center: runnable AI security research,
+      application security practice, and product engineering with threat models
+      attached.
     </p>
   </header>
 
@@ -84,8 +85,9 @@ const areas = [
     <h2>Evidence before decoration.</h2>
     <p>
       Future entries will include role, constraints, decisions, implementation,
-      outcome, screenshots or playable evidence, and lessons learned. No invented
-      metrics and no inflated claims.
+      security assumptions, outcome, screenshots or runnable evidence, and
+      lessons learned. No invented metrics and no inflated claims. Game Lab work
+      stays available as a secondary learning thread, not the primary site focus.
     </p>
   </aside>
 </BaseLayout>
@@ -99,6 +101,7 @@ const areas = [
   .projects-hero h1 {
     max-width: 58rem;
     margin: 0 0 1rem;
+    overflow-wrap: anywhere;
     text-transform: uppercase;
   }
 
@@ -192,6 +195,15 @@ const areas = [
   }
 
   @media (max-width: 640px) {
+    .projects-hero {
+      padding: 2rem 1.25rem;
+    }
+
+    .projects-hero h1 {
+      font-size: clamp(2.35rem, 12vw, 3.25rem);
+      line-height: 1.05;
+    }
+
     .project-area {
       grid-template-columns: 3.5rem minmax(0, 1fr);
     }
