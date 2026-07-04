@@ -12,27 +12,27 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 ---
 
 <BaseLayout
-  title="Small Screens / Big Worlds — Shawn Campbell"
-  description="Native mobile systems, React products, AI-assisted development, and a growing body of work in games."
+  title="Security for Small Screens / Big Worlds — Shawn Campbell"
+  description="Application security, AI security research, secure mobile systems, and product engineering by Shawn Campbell."
 >
   <section class="home-hero">
     <div class="hero-copy">
-      <p class="kicker ops-only">Build status / curious and operational</p>
-      <p class="kicker direct-only">Mobile and Product Engineering</p>
-      <h1>Software for <span>small screens</span> and big worlds.</h1>
+      <p class="kicker ops-only">Security status / active and operational</p>
+      <p class="kicker direct-only">Application Security and Product Engineering</p>
+      <h1>Security for <span>small screens</span> and big worlds.</h1>
       <p class="mission-copy">
-        I build native mobile systems, React products, and increasingly, games.
-        AI is part of the toolkit: useful for accelerating experiments, never a
-        substitute for engineering judgment.
+        I build and break software systems with a security engineer's bias for
+        evidence. The current focus is AI security, application security, and
+        secure product work across mobile, frontend, and connected systems.
       </p>
       <div class="hero-actions">
         <a class="primary-action" href="#selected-work">
-          <span class="ops-only">Enter the shipyard</span>
-          <span class="direct-only">View selected work</span>
+          <span class="ops-only">Open the security board</span>
+          <span class="direct-only">View security work</span>
         </a>
         <a href={`${base}/blog`}>
-          <span class="ops-only">Open the flight log</span>
-          <span class="direct-only">Read the blog</span>
+          <span class="ops-only">Read field notes</span>
+          <span class="direct-only">Read security writing</span>
         </a>
       </div>
     </div>
@@ -44,12 +44,12 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
       <p class="kicker ops-only">Active Mission Board</p>
       <p class="kicker direct-only">Selected Work</p>
       <h2 id="work-heading">
-        <span class="ops-only">Systems worth opening up</span>
-        <span class="direct-only">Mobile, product, and game-development work</span>
+        <span class="ops-only">Systems worth testing under pressure</span>
+        <span class="direct-only">Security research and secure product work</span>
       </h2>
       <p>
-        Real engineering decisions, constraints, implementation details, and
-        lessons learned.
+        Practical work across AI security, application security, mobile systems,
+        and product engineering.
       </p>
     </header>
     <div class="mission-grid">
@@ -57,26 +57,27 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     </div>
   </section>
 
-  <section class="current-course" id="game-lab" aria-labelledby="course-heading">
+  <section class="current-course" id="security-lab" aria-labelledby="course-heading">
     <div>
       <p class="kicker ops-only">Current Trajectory</p>
       <p class="kicker direct-only">Current Focus</p>
-      <h2 id="course-heading">Learning game development in public</h2>
+      <h2 id="course-heading">Making AI security executable</h2>
     </div>
     <p>
-      I am bringing decades of mobile, frontend, architecture, and team
-      leadership experience into Godot and Unreal. The goal is playable work,
-      clear postmortems, and an honest record of what transfers and what does not.
+      I am building vulnerable-agent labs, attack harnesses, and practical
+      writeups around the OWASP LLM Top 10. The goal is to turn vague AI risk
+      into runnable examples, observable failures, and defensible mitigations.
     </p>
   </section>
 
   <section class="systems-rigor" id="systems-rigor">
     <p class="kicker ops-only">Hull Integrity</p>
-    <p class="kicker direct-only">Engineering Discipline</p>
-    <h2>Security remains part of product quality.</h2>
+    <p class="kicker direct-only">Security Discipline</p>
+    <h2>Security is the product quality baseline.</h2>
     <p>
       Threat modeling, permissions, storage, trust boundaries, and failure modes
-      stay inside the engineering story rather than becoming a separate identity.
+      are treated as normal engineering constraints, not after-the-fact review
+      rituals.
     </p>
   </section>
 
@@ -84,7 +85,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     <section class="latest-section" aria-labelledby="latest-heading">
       <p class="kicker ops-only">Latest Transmissions</p>
       <p class="kicker direct-only">Latest Writing</p>
-      <h2 id="latest-heading">Dispatches from the build</h2>
+      <h2 id="latest-heading">Security notes from the field</h2>
       <div class="post-grid">
         {posts.map((post) => (
           <a class="signal-card" href={`${base}/blog/${post.id}`}>

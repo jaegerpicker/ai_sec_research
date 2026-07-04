@@ -25,6 +25,6 @@ assert.match(projects, /Game Lab/);
 assert.match(projects, /Under construction/);
 assert.match(blog, /Flight Log/);
 assert.match(blog, /System Deep Dives/);
-assert.match(readme, /50% mobile and product engineering/);
+assert.match(readme, /50% AI security and application security/);
 
 console.log('projects and editorial tests passed');
