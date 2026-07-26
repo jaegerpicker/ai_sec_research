@@ -17,9 +17,9 @@
     "test:lab": "node scripts/run-lab-tests.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.5",
+    "@astrojs/mdx": "^7.0.3",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^6.4.8"
+    "astro": "^7.1.3"
   }
 }
